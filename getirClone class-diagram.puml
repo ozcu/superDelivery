@@ -68,6 +68,6 @@ ProductCategories  -up-|> User
 
 Product - Basket : adds >
 Basket *- Order: orders >
-Basket -- User: < owns
+Basket -- User < owns
 @enduml
 
