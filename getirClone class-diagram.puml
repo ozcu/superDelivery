@@ -1,0 +1,32 @@
+@startuml getirClone classDiagram
+class User {
++name
++email
++telephone
++addresses
++oldOrders
++activeOrder
+
+addItemToBasket()
+
+
+}
+
+class Item {
++name
++photo
++description
++price
+
+}
+
+class Basket{
++items
+
+}
+Item o-->Basket
+
+
+
+@enduml
+
