@@ -5,7 +5,18 @@ class Basket{
         this.discountedProduct = []
         this.discountedBasketTotal = discountedBasketTotal
     }
-    //calculateTotalDiscount()
+    /*
+        addToBasketTotal (product.price){
+        basket.basketTotal =  basket.basketTotal + product.price
+        return basket.basketTotal
+    }
+    */
+    
 }
+
+
+
+
+
 
 module.exports = Basket

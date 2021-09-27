@@ -14,14 +14,26 @@ class User {
     addProductToBasket(product,basket){
         const addedProduct = new Basket(product,basket)
         basket.product.push(product)
-        console.log('I have added the' + JSON.stringify(product))
+       // console.log('I have added the' + JSON.stringify(product))
+        basket.basketTotal =  basket.basketTotal + product.price
+
+        //addToBasketTotal (product.price) -> basket ikinci parametresiz nasıl yapacağım çözemedim 
+        //basket user içinde tanımlanmadıgı için sanırım. Nested class kötü demiştiniz çözümü ne olur?
+        //üstteki satırı bir fonksiyon içine koyup nested fonksiyon cagırmayı denedim olmadı
+        //amacım basket içinde addToBasketTotal methodu olarak tanımlamaktı 
+
     }
+    
     removeProductFromBasket(product,basket){
         const removedProduct = new Basket(product,basket)
         basket.product.pop(product)
-        console.log('I have removed the' + JSON.stringify(product))
+       // console.log('I have removed the' + JSON.stringify(product))
+
+       basket.basketTotal =  basket.basketTotal - product.price
+
     }
 
+  
 
 
     /*

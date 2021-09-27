@@ -1,0 +1,26 @@
+[
+  {
+    "name": "Banana",
+    "photo": "bananaPhoto",
+    "description": "250g",
+    "price": 2.5,
+    "category": "Fruit",
+    "hasDiscount": false
+  },
+  {
+    "name": "Bread",
+    "photo": "breadPhoto",
+    "description": "1xBread 120g",
+    "price": 1.5,
+    "category": "Baked Product(s)",
+    "hasDiscount": false
+  },
+  {
+    "name": "Water",
+    "photo": "waterPhoto",
+    "description": "1xBottle",
+    "price": 1,
+    "category": "Water",
+    "hasDiscount": false
+  }
+]

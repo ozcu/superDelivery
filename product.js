@@ -8,14 +8,10 @@ class Product{
         this.hasDiscount = hasDiscount
         
     
-    }
+       }
 
     
     }
-
-
-
-
 
 
 
