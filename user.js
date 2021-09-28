@@ -1,6 +1,7 @@
 const Basket = require("./basket")
 const Order = require("./order")
-const productDatabase = require("./product-database")
+const Product = require("./product")
+const productDatabase = require("./database/product-database")
 
 class User {
 
@@ -15,6 +16,12 @@ class User {
         this.order = new Order ('',[],[],0)
         
     }
+
+    static create ({name,email,telephone,address,addressGeolocation,creditCardInfo,basket,order}){
+        return new User(name,email,telephone,address,addressGeolocation,creditCardInfo,basket,order)
+    }
+
+
     addProductToBasket(product){
 
         this.basket.product.push(product)
@@ -47,11 +54,10 @@ class User {
         this.order.orderTotal = 0
     }
 
-    static create ({name,address,oldOrders}){
-        return new User(name,address,oldOrders)
-    }
+    
 
     /*
+    sonra gelebilecek methodlar
     useDiscount()
     */
 

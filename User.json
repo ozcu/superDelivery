@@ -9,6 +9,7 @@
     "basket": {
       "product": [
         {
+          "id": "e6c1275d-15ea-4c24-96d8-2b2d9c0b2140",
           "name": "Bread",
           "photo": "breadPhoto",
           "description": "1xBread 120g",

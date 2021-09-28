@@ -10,5 +10,7 @@
   },
   "author": "Ugurhan Buyukozcu",
   "license": "ISC",
-  "dependencies": {}
+  "dependencies": {
+    "uuid": "^8.3.2"
+  }
 }
