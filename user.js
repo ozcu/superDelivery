@@ -1,44 +1,57 @@
 const Basket = require("./basket")
+const Order = require("./order")
+const productDatabase = require("./product-database")
 
 class User {
 
-    constructor(name,email,telephone,address,addressGeolocation,creditCardInfo){
+    constructor(name,email,telephone,address,addressGeolocation,creditCardInfo,basket,order){
         this.name = name
         this.email = email
         this.telephone = telephone
         this.address = address
         this.addressGeolocation = []
         this.creditCardInfo = creditCardInfo
+        this.basket = new Basket([],0)
+        this.order = new Order ('',[],[],0)
         
     }
-    addProductToBasket(product,basket){
-        const addedProduct = new Basket(product,basket)
-        basket.product.push(product)
-       // console.log('I have added the' + JSON.stringify(product))
-        basket.basketTotal =  basket.basketTotal + product.price
+    addProductToBasket(product){
 
-        //addToBasketTotal (product.price) -> basket ikinci parametresiz nasıl yapacağım çözemedim 
-        //basket user içinde tanımlanmadıgı için sanırım. Nested class kötü demiştiniz çözümü ne olur?
-        //üstteki satırı bir fonksiyon içine koyup nested fonksiyon cagırmayı denedim olmadı
-        //amacım basket içinde addToBasketTotal methodu olarak tanımlamaktı 
-
+        this.basket.product.push(product)
+        this.basket.addToBasketTotal(product.price)
+        
     }
     
-    removeProductFromBasket(product,basket){
-        const removedProduct = new Basket(product,basket)
-        basket.product.pop(product)
-       // console.log('I have removed the' + JSON.stringify(product))
-
-       basket.basketTotal =  basket.basketTotal - product.price
+    removeProductFromBasket(product){
+        
+        const index = (this.basket.product.indexOf(product))
+        this.basket.product.splice(index,1)
+        this.basket.removeFromBasketTotal(product.price)
 
     }
+    emptyBasket(){
+        this.basket = new Basket([],0)
+        
+    }
 
-  
+    finalizeOrder(){
+        this.order.activeOrder =  [this.basket.product]
+        this.basket.product = []
 
+        this.basket.basketTotal = this.order.orderTotal
+        this.basket.basketTotal = 0
+    }
+
+    removeOrder(){
+        this.order.activeOrder = []
+        this.order.orderTotal = 0
+    }
+
+    static create ({name,address,oldOrders}){
+        return new User(name,address,oldOrders)
+    }
 
     /*
-    removeProductFromBasket()
-    finalizeOrder()
     useDiscount()
     */
 

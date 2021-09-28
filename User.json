@@ -1,0 +1,29 @@
+[
+  {
+    "name": "Ugurhan",
+    "email": "asd@gmail.com",
+    "telephone": "+90555555555",
+    "address": "Bostancı mh",
+    "addressGeolocation": [],
+    "creditCardInfo": "55555555555555551023111",
+    "basket": {
+      "product": [
+        {
+          "name": "Bread",
+          "photo": "breadPhoto",
+          "description": "1xBread 120g",
+          "price": 1.5,
+          "category": "Baked Product(s)",
+          "hasDiscount": false
+        }
+      ],
+      "basketTotal": 1.5
+    },
+    "order": {
+      "name": "",
+      "oldOrders": [],
+      "activeOrder": [],
+      "orderTotal": 0
+    }
+  }
+]

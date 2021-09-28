@@ -10,7 +10,5 @@
   },
   "author": "Ugurhan Buyukozcu",
   "license": "ISC",
-  "dependencies": {
-    "colors": "^1.4.0"
-  }
+  "dependencies": {}
 }
