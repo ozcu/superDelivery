@@ -1,7 +1,7 @@
 const Basket = require("./basket")
 const Order = require("./order")
 const Product = require("./product")
-const productDatabase = require("./database/product-database")
+//const productDatabase = require("../database/product-database")
 
 class User {
 

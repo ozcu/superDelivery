@@ -1,0 +1,34 @@
+[
+  {
+    "id": "dd7b0ece-d1d2-4005-bff8-a6a66015ab39",
+    "name": "Banana",
+    "photo": "bananaPhoto",
+    "description": "250g",
+    "price": 2.5,
+    "category": "Fruit",
+    "hasDiscount": false
+  },
+  {
+    "id": "13d45133-9840-41b3-a2a8-54e033954e02",
+    "name": "Water",
+    "photo": "waterPhoto",
+    "description": "1xBottle",
+    "price": 1,
+    "category": "Water",
+    "hasDiscount": false
+  },
+  {
+    "id": "2ac1c1e7-f5cc-469f-b8e2-8809335afa34",
+    "name": "Salt",
+    "category": "unknown"
+  },
+  {
+    "id": "13d45133-9840-41b3-a2a8-54e033954e02",
+    "name": "Water",
+    "photo": "waterPhoto",
+    "description": "1xBottle",
+    "price": 1,
+    "category": "Water",
+    "hasDiscount": false
+  }
+]
