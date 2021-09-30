@@ -1,7 +1,8 @@
 const User = require('./models/user')
 const Product =require('./models/product')
+const Order = require("./models/order")
 const {userDatabase, productDatabase} = require('./database/index')
-const { findBy } = require('./database/user-database')
+
 
 
 
@@ -12,11 +13,22 @@ const water = new Product(undefined,'Water','waterPhoto','1xBottle', 1.0, 'Water
 
 
 
-ugurhan.addProductToBasket([water]) // -> bu fonksiyon async olmalı mı ?
+ugurhan.addProductToBasket([water]) 
 
 
 async function main(){
  try {
+    
+   
+    ugurhan.addProductToBasket(bread)
+
+    
+    ugurhan.emptyBasket().then(console.log('test'))
+     ugurhan.order = new Order ('oldOrder',['oldOrder1','olrOrder2'],['activeOrder'],)
+   console.log(ugurhan)
+
+   ugurhan.removeOrder().then(console.log('test2'))
+
     
     await userDatabase.save([ugurhan])
     await productDatabase.save([banana])
@@ -25,15 +37,15 @@ async function main(){
     await productDatabase.insert([water])
     await productDatabase.insert([salt])
     await productDatabase.insert([water]) //-> Insert identical için ilk başta hata aldım sonra alamadım
-
+    
     await userDatabase.load()
    // await productDatabase.insert([water])
 
    // await productDatabase.remove(2)
-   const newSalt =  await productDatabase.findBy('category','unknown')
-    console.log(newSalt)
+   //const newSalt =  await productDatabase.findBy('category','unknown')
+   // console.log(newSalt)
 
-    productDatabase.update(newSalt)
+   // productDatabase.update(newSalt)
     
     await userDatabase.findByName('Ugurhan')
     await productDatabase.findByName('Banana')
