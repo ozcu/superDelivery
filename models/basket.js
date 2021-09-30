@@ -6,13 +6,22 @@ class Basket{
     }
     
     addToBasketTotal (price){
-    this.basketTotal =  this.basketTotal + price
-    return this.basketTotal
+        return new Promise((resolve,reject) => {
+        this.basketTotal =  this.basketTotal + price,(err) =>{
+        if (err) return reject(err)
+        resolve(this.basketTotal)
+        }
+        })
     }
 
+
     removeFromBasketTotal (price){
-        this.basketTotal =  this.basketTotal - price
-    return this.basketTotal
+        return new Promise((resolve,reject) => {
+        this.basketTotal =  this.basketTotal - price,(err) =>{
+        if (err) return reject(err)
+        resolve(this.basketTotal)
+        }
+        })
     }
     
     
