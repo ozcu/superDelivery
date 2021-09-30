@@ -21,43 +21,82 @@ class User {
         return new User(name,email,telephone,address,addressGeolocation,creditCardInfo,basket,order)
     }
 
-
-    addProductToBasket(product){
+    async addProductToBasket(product){
 
         this.basket.product.push(product)
-        this.basket.addToBasketTotal(product.price)
+        await this.basket.addToBasketTotal(product.price)
+        return this.basket.product
         
     }
     
-    removeProductFromBasket(product){
+    async removeProductFromBasket(product){
         
         const index = (this.basket.product.indexOf(product))
         this.basket.product.splice(index,1)
-        this.basket.removeFromBasketTotal(product.price)
+       await this.basket.removeFromBasketTotal(product.price)
+       return this.basket.product
 
     }
     emptyBasket(){
-        this.basket = new Basket([],0)
+        return new Promise((resolve,reject) =>{
+
+            this.basket = new Basket([],0),(err) => {
+               
+                if (err) return reject(err)
+                resolve (this.basket)
+            
+            }
+            
+        })
+       
         
     }
 
     finalizeOrder(){
-        this.order.activeOrder =  [this.basket.product]
-        this.basket.product = []
+        return new Promise((resolve,reject) =>{
 
-        this.basket.basketTotal = this.order.orderTotal
-        this.basket.basketTotal = 0
+        this.order.activeOrder = [this.basket.product],(err) =>{
+            if (err) return reject(err)
+            resolve(this.order.activeOrder)
+        }
+
+        this.basket.product = [],(err) =>{
+            if (err) return reject(err)
+            resolve(this.basket.product)
+        }
+
+        this.basket.basketTotal = this.order.orderTotal,(err) =>{
+            if (err) return reject(err)
+            resolve(this.basket.basketTotal)
+        }
+
+        this.basket.basketTotal = 0,(err) =>{
+            if (err) return reject(err)
+            resolve(this.basket.basketTotal)
+        }
+        
+        })
     }
 
     removeOrder(){
-        this.order.activeOrder = []
-        this.order.orderTotal = 0
+        return new Promise((resolve,reject) =>{
+
+        this.order.activeOrder = [],(err) =>{
+            if (err) return reject(err)
+            resolve(this.order.activeOrder)
+        }
+        this.order.orderTotal = 0,(err) => {
+            if (err) return reject(err)
+            resolve(this.order.orderTotal)
+        }
+
+        })
     }
 
     
 
     /*
-    sonra gelebilecek methodlar
+    sonra gelebilecek methodlar=
     useDiscount()
     */
 
