@@ -56,7 +56,7 @@ class BaseDatabase{
         return objects.find(o=>o.name == name) // o-> object kısaltması
     }
     
-   async remove(index){
+    async remove(index){
         const objects = await this.load()
         objects.splice(index,1) 
        return this.save(objects)
@@ -77,7 +77,7 @@ class BaseDatabase{
         const index = await objects.findIndex(o => o.id == object.id )
         if (index == -1) throw new Error(`Cannot find ${this.model.name} instance with ID ${object.id}`)
         objects.splice(index,1,object)
-         return this.save(objects)
+        return this.save(objects)
 
     }
 
