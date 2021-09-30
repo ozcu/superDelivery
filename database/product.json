@@ -1,6 +1,6 @@
 [
   {
-    "id": "dd7b0ece-d1d2-4005-bff8-a6a66015ab39",
+    "id": "a360d905-8995-4360-8afd-06a418d1a560",
     "name": "Banana",
     "photo": "bananaPhoto",
     "description": "250g",
@@ -9,7 +9,7 @@
     "hasDiscount": false
   },
   {
-    "id": "13d45133-9840-41b3-a2a8-54e033954e02",
+    "id": "fb2c5715-d103-40ba-aa97-5c3677ee8b5c",
     "name": "Water",
     "photo": "waterPhoto",
     "description": "1xBottle",
@@ -18,12 +18,12 @@
     "hasDiscount": false
   },
   {
-    "id": "2ac1c1e7-f5cc-469f-b8e2-8809335afa34",
+    "id": "fd5ff2f3-04e8-4fdd-8a4f-f1e3f93370a8",
     "name": "Salt",
     "category": "unknown"
   },
   {
-    "id": "13d45133-9840-41b3-a2a8-54e033954e02",
+    "id": "fb2c5715-d103-40ba-aa97-5c3677ee8b5c",
     "name": "Water",
     "photo": "waterPhoto",
     "description": "1xBottle",

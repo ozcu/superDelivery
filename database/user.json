@@ -7,23 +7,11 @@
     "addressGeolocation": [],
     "creditCardInfo": "55555555555555551023111",
     "basket": {
-      "product": [
-        [
-          {
-            "id": "13d45133-9840-41b3-a2a8-54e033954e02",
-            "name": "Water",
-            "photo": "waterPhoto",
-            "description": "1xBottle",
-            "price": 1,
-            "category": "Water",
-            "hasDiscount": false
-          }
-        ]
-      ],
-      "basketTotal": null
+      "product": [],
+      "basketTotal": 0
     },
     "order": {
-      "name": "",
+      "name": "oldOrder",
       "oldOrders": [],
       "activeOrder": [],
       "orderTotal": 0
