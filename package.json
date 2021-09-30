@@ -11,6 +11,8 @@
   "author": "Ugurhan Buyukozcu",
   "license": "ISC",
   "dependencies": {
+    "express": "^4.17.1",
+    "pug": "^3.0.2",
     "uuid": "^8.3.2"
   }
 }
