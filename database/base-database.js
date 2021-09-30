@@ -12,9 +12,9 @@ class BaseDatabase{
             fs.writeFile(`${__dirname}/${this.filename}.json`,JSON.stringify(objects,null,2),(err,file) => {
                 if (err) return reject(err)
                 resolve(file)
-            })
+            }) 
         })
-        //promise syntaxi kabus gibi :/
+        //promise syntaxi oturtamadım hala emin degilim tüm fonksiyonlar calısıyor mu hata vermese de
         
    
     }
@@ -35,7 +35,7 @@ class BaseDatabase{
         
     }
   
-    //yeni syntaxa göre ilk öcne calıstı simdi calıstıramıyorum
+    
    async  insert(object) {
         const objects = await this.load()
         const identicalProduct = objects.find(o => o.name == object.name) //check if identical product name is available no lowercase/uppercase case control yet
