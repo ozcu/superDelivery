@@ -1,4 +1,6 @@
 const fs = require('fs')
+const {filehandle} = require('fs/promises')
+
 
 class BaseDatabase{
     constructor(model){
@@ -9,33 +11,35 @@ class BaseDatabase{
     save(objects) {
        return new Promise((resolve,reject) => {
 
-            fs.writeFile(`${__dirname}/${this.filename}.json`,JSON.stringify(objects,null,2),(err,file) => {
+            fs.writeFile(`${__dirname}/${this.filename}.json`,JSON.stringify(objects,null,2),(err) => {
                 if (err) return reject(err)
-                resolve(file)
+                resolve()
             }) 
         })
-        //promise syntaxi oturtamadım hala emin degilim tüm fonksiyonlar calısıyor mu hata vermese de
+        
         
    
     }
+
+
     
     load() {
-        return new Promise((resolve,reject) =>{
-
-            fs.readFile(`${__dirname}/${this.filename}.json`,'utf8',(err,file) => {
-                if (err) return reject (err)
-
-                const objects = JSON.parse(file) 
-
-                resolve (objects.map(this.model.create))
-
-            })
+        return new Promise((resolve, reject) => {
+         fs.readFile(`${__dirname}/${this.filename}.json`, 'utf8', (err, file) => {
             
+            if (err) return reject(err)
+
+            const objects = JSON.parse(file)
+            
+            resolve(objects)
+         // resolve([objects].map(this.model.create))
+          
+          })
         })
+      }
         
-    }
-  
     
+   
    async  insert(object) {
         const objects = await this.load()
         const identicalProduct = objects.find(o => o.name == object.name) //check if identical product name is available no lowercase/uppercase case control yet

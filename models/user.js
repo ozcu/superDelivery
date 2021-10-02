@@ -1,6 +1,7 @@
+const Product = require("./product")
 const Basket = require("./basket")
 const Order = require("./order")
-const Product = require("./product")
+
 //const productDatabase = require("../database/product-database")
 
 class User {
@@ -23,7 +24,7 @@ class User {
 
     async addProductToBasket(product){
 
-        this.basket.product.push(product)
+         this.basket.product.push(product)
         await this.basket.addToBasketTotal(product.price)
         return this.basket.product
         

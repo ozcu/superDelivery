@@ -1,34 +1,9 @@
-[
-  {
-    "id": "a360d905-8995-4360-8afd-06a418d1a560",
-    "name": "Banana",
-    "photo": "bananaPhoto",
-    "description": "250g",
-    "price": 2.5,
-    "category": "Fruit",
-    "hasDiscount": false
-  },
-  {
-    "id": "fb2c5715-d103-40ba-aa97-5c3677ee8b5c",
-    "name": "Water",
-    "photo": "waterPhoto",
-    "description": "1xBottle",
-    "price": 1,
-    "category": "Water",
-    "hasDiscount": false
-  },
-  {
-    "id": "fd5ff2f3-04e8-4fdd-8a4f-f1e3f93370a8",
-    "name": "Salt",
-    "category": "unknown"
-  },
-  {
-    "id": "fb2c5715-d103-40ba-aa97-5c3677ee8b5c",
-    "name": "Water",
-    "photo": "waterPhoto",
-    "description": "1xBottle",
-    "price": 1,
-    "category": "Water",
-    "hasDiscount": false
-  }
-]
+{
+  "id": "91515342-fd55-43f1-9c35-2dcf54cccc19",
+  "name": "Bread",
+  "photo": "breadPhoto",
+  "description": "1xBread 120g",
+  "price": 1.5,
+  "category": "Baked Product(s)",
+  "hasDiscount": false
+}

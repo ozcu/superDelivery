@@ -1,20 +1,15 @@
-[
-  {
-    "name": "Ugurhan",
-    "email": "asd@gmail.com",
-    "telephone": "+90555555555",
-    "address": "Bostancı mh",
-    "addressGeolocation": [],
-    "creditCardInfo": "55555555555555551023111",
-    "basket": {
-      "product": [],
-      "basketTotal": 0
-    },
-    "order": {
-      "name": "oldOrder",
-      "oldOrders": [],
-      "activeOrder": [],
-      "orderTotal": 0
-    }
+{
+  "name": "demirdemir",
+  "email": "demir@test.com",
+  "addressGeolocation": [],
+  "basket": {
+    "product": [],
+    "basketTotal": 0
+  },
+  "order": {
+    "name": "",
+    "oldOrders": [],
+    "activeOrder": [],
+    "orderTotal": 0
   }
-]
+}
