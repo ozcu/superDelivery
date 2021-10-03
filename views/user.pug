@@ -2,12 +2,15 @@ extends layout
 block content
 
 
-    h2 Users
-    p There are TEST  users in the system.
+    h1 User Detail
+    h2 #{user.name}
 
-    ol
-        //   li #{users[0].name}
+    p Order History 
+//- bu kısım daha hazır değil
+    if user.order.length 
+        ol
+            each order in user.order 
+                li From #{order.origin} to #{order.destination}
+    else 
+        p No Orders
 
-        //#{users.name}
-
-        
