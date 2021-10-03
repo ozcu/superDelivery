@@ -1,0 +1,15 @@
+{
+  "name": "demirdemir",
+  "email": "demir@test.com",
+  "addressGeolocation": [],
+  "basket": {
+    "product": [],
+    "basketTotal": 0
+  },
+  "order": {
+    "name": "",
+    "oldOrders": [],
+    "activeOrder": [],
+    "orderTotal": 0
+  }
+}
