@@ -3,11 +3,11 @@ class BaseService {
       this.model = model
     }
   
-    save(objects) {
-      return this.model.insertMany(objects)
+    save(objects) { // load ve save neden async değil?
+      return this.model.insertMany(objects) 
     }
   
-    load() {
+    load() { // load ve save neden async değil?
       return this.model.find()
     }
   
