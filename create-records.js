@@ -1,17 +1,40 @@
+require('./mongo-connection')
 const User = require('./models/user')
-const Product =require('./models/product')
-const {userDatabase, productDatabase} = require('./database/index')
+const Product = require('./models/product')
+const Basket = require('./models/basket')
+const Order = require('./models/order')
+
+const {userService, productService} = require('./services/index')
+const product = require('./models/product')
+
+
+//const osman = User.create({name:'Osman',email:'osman@osman.com'})
+
+//
+
+//const bread = Product.create({name:'bread',description:'120g'})
+
+async function main(){
+  try{
+   // const ugurhan = await User.create({name: 'Ugurhan',email:'ugurhan@gmail.com'})
+     const water = Product.create({name:'water',description:'1xbottle'})
+    
+   //await productService.insert(bread)
+ 
+  }catch(e){
+    return console.log(e)
+  }
+
+
+}
+
+main()
 
 
 
 
 
-const ugurhan = new User('Ugurhan','asd@gmail.com','+90555555555','Bostancı mh',[40.955,29.104],'55555555555555551023111')
-const banana = new Product(undefined,'Banana','bananaPhoto','250g', 2.5, 'Fruit',false)
-const bread = new Product(undefined,'Bread','breadPhoto','1xBread 120g', 1.5, 'Baked Product(s)', false)
-const water = new Product(undefined,'Water','waterPhoto','1xBottle', 1.0, 'Water', false)
-
-const user1 = User.create({name:'Sinan',email:'sdf@sdft.com'})
+/*
 
 
 //productDatabase.save(bread)

@@ -1,8 +1,7 @@
 const express = require ('express')
-const {userDatabase, productDatabase} = require('./database/index')
+const {userDatabase, productDatabase} = require('./services/index')
 const User = require('./models/user')
 const app = express()
-
 require('./mongo-connection')
 app.use(express.json())
 
@@ -17,14 +16,14 @@ app.post('/users', async (req,res)=> {
 })
 
 
-app.get('/users', async (req,res)=>{
+app.get('/user', async (req,res)=>{
    // const users = await userDatabase.load()
      
   
  
  
    // res.send(JSON.stringify(users,null,2))
-  // res.render('users', {users})
+   res.render('user')
   // console.log(users.length)
  })
 
