@@ -1,27 +1,13 @@
-const uuid = require('uuid')
+const mongoose = require('mongoose')
 
-class Product{
-    constructor(id = uuid.v4(), name, photo, description, price, category, hasDiscount ){
-        this.id = id
-        this.name = name
-        this.photo = photo
-        this.description = description
-        this.price = price
-        this.category = category
-        this.hasDiscount = hasDiscount
-        
-        //currency için denedim fakat toplatmıyor bu şekilde NaN geliyor.  console.log(ugurhan.basket.basketTotal)
-        //Intl.NumberFowrmat('tr-TR', { style: 'currency', currency: 'TRY' }).format(price)
-       }
-
-       static create ({id,name, photo, description, price, category, hasDiscount}){
-        return new Product(id,name, photo, description, price, category, hasDiscount)
-    }
+const ProductSchema = new mongoose.Schema({
+    name:String,
+    photo: String,
+    description: String,
+    price: Number,
+    category: String,
     
-    }
+}, {timestamps: true})
 
-
-
-
-    module.exports = Product
-  
+//ProductSchema.plugin(require('mongoose-autopopulate'))
+module.exports = mongoose.model('Product',ProductSchema)

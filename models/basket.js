@@ -1,3 +1,16 @@
+const mongoose = require('mongoose')
+
+const BasketSchema = new mongoose.Schema({
+    product: [],
+    basketTotal: Number
+
+}, {timestamps: true})
+//BasketSchema.plugin(require('mongoose-autopopulate'))
+module.exports = mongoose.model('Basket',BasketSchema)
+
+
+/*
+
 class Basket{
     constructor(product, basketTotal){
         this.product = []
@@ -30,3 +43,5 @@ class Basket{
 
 
 module.exports = Basket
+
+*/
