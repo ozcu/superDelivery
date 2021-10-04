@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose')
 
 const OrderSchema = new mongoose.Schema(
   {
@@ -7,10 +7,10 @@ const OrderSchema = new mongoose.Schema(
     activeOrder: [],
     orderTotal: Number,
   },
-  { timestamps: true }
-);
+  { timestamps: true },
+)
 //OrderSchema.plugin(require('mongoose-autopopulate'))
-module.exports = mongoose.model("Order", OrderSchema);
+module.exports = mongoose.model('Order', OrderSchema)
 
 /*
 

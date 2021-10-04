@@ -1,11 +1,14 @@
-require("./mongo-connection");
-const User = require("./models/user");
-const Product = require("./models/product");
-const Basket = require("./models/basket");
-const Order = require("./models/order");
+require('./mongo-connection')
+const User = require('./models/user')
+const Product = require('./models/product')
+const Basket = require('./models/basket')
+const Order = require('./models/order')
 
-const { userService, productService } = require("./services/index");
-const product = require("./models/product");
+const {
+  userService,
+  productService,
+  courierService,
+} = require('./services/index')
 
 //const osman = User.create({name:'Osman',email:'osman@osman.com'})
 
@@ -19,8 +22,8 @@ async function main() {
     // const water = Product.create({name:'water',description:'1xbottle'})
     //await productService.insert(bread)
   } catch (e) {
-    return console.log(e);
+    return console.log(e)
   }
 }
 
-main();
+main()

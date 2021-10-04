@@ -1,14 +1,14 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose')
 
 const BasketSchema = new mongoose.Schema(
   {
     product: [],
     basketTotal: Number,
   },
-  { timestamps: true }
-);
+  { timestamps: true },
+)
 //BasketSchema.plugin(require('mongoose-autopopulate'))
-module.exports = mongoose.model("Basket", BasketSchema);
+module.exports = mongoose.model('Basket', BasketSchema)
 
 /*
 

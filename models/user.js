@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose')
 
 const UserSchema = new mongoose.Schema(
   {
@@ -11,22 +11,22 @@ const UserSchema = new mongoose.Schema(
     basket: [
       {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "basket",
+        ref: 'basket',
         // autopopulate: {maxDepth:2}
       },
     ],
     order: [
       {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "order",
+        ref: 'order',
         // autopopulate: {maxDepth:2}
       },
     ],
   },
-  { timestamps: true }
-);
+  { timestamps: true },
+)
 //UserSchema.plugin(require('mongoose-autopopulate'))
-module.exports = mongoose.model("User", UserSchema);
+module.exports = mongoose.model('User', UserSchema)
 
 /*
 class User {
