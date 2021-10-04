@@ -1,7 +1,7 @@
 require('./mongo-connection')
 
 const express = require('express')
-const bodyParser = require('body-parser')
+//const bodyParser = require('body-parser') //deprecated express içine dahil oldu sanırım bir test edip kaldır
 
 const app = express()
 
