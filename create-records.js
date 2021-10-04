@@ -1,26 +1,29 @@
 require('./mongo-connection')
-const User = require('./models/user')
-const Product = require('./models/product')
-const Basket = require('./models/basket')
-const Order = require('./models/order')
 
 const {
   userService,
   productService,
-  courierService,
+  basketService,
 } = require('./services/index')
-
-//const osman = User.create({name:'Osman',email:'osman@osman.com'})
-
-//
-
-//const bread = Product.create({name:'bread',description:'120g'})
 
 async function main() {
   try {
-    // const ugurhan = await User.create({name: 'Ugurhan',email:'ugurhan@gmail.com'})
-    // const water = Product.create({name:'water',description:'1xbottle'})
-    //await productService.insert(bread)
+    productBread = await productService.findByName('Bread')
+    productWater = await productService.findByName('Water')
+
+    userOsman = await userService.findByName('Osman')
+    console.log(userOsman)
+
+    const newBasket = await basketService.addProductToBasket(productBread)
+    userOsman.basket = newBasket
+    console.log(userOsman)
+
+    //user.basket.products undefined
+    //user.Basket.products -> [[{product}]] neden böyle oturtamadım. servisleri hatalı mı ayırıyorum acaba
+    //add product methodu user'a mı ait olmalı basket yerine?
+
+    // console.log(Basket)
+    //console.log(testProduct)
   } catch (e) {
     return console.log(e)
   }
