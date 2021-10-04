@@ -11,20 +11,3 @@ const OrderSchema = new mongoose.Schema(
 )
 //OrderSchema.plugin(require('mongoose-autopopulate'))
 module.exports = mongoose.model('Order', OrderSchema)
-
-/*
-
-class Order {
-    constructor(name, oldOrders, activeOrder,orderTotal){
-        this.name = name
-        this.oldOrders =[]
-        this.activeOrder = []
-        this.orderTotal = orderTotal
-       }
-
-}
-
-
-module.exports = Order
-
-*/
