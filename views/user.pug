@@ -3,9 +3,13 @@ block content
 
 
     h1 User Detail
-    h2 #{user.name}
+    p <strong>Name: </strong> #{user.name}
+    p <strong>Email: </strong>#{user.email}
+    p <strong>Telephone: </strong>#{user.telephone}
+    p <strong>Address: </strong>#{user.address}
+   
 
-    p Order History 
+    h2 Order History 
 //- bu kısım daha hazır değil
     if user.order.length 
         ol
