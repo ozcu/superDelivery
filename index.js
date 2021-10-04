@@ -1,39 +1,25 @@
-const express = require ('express')
-const {userDatabase, productDatabase} = require('./services/index')
-const User = require('./models/user')
-const app = express()
 require('./mongo-connection')
+
+const express = require ('express')
+const bodyParser = require('body-parser')
+
+const app = express()
+
 app.use(express.json())
+app.use(express.urlencoded({extended:true}))
+
 
 app.set('view engine','pug')
 
-app.post('/users', async (req,res)=> {
-
-  const  users = User.create(req.body)
-  await userDatabase.save(users) // load calısınca burası insert olacak
- res.send(userDatabase)
- 
-})
-
-
-app.get('/user', async (req,res)=>{
-   // const users = await userDatabase.load()
-     
-  
- 
- 
-   // res.send(JSON.stringify(users,null,2))
-   res.render('user')
-  // console.log(users.length)
- })
+const indexRouter = require('./routes/index')
+const usersRouter = require('./routes/users')
+const productsRouter = require('./routes/products')
 
 
 
-app.get('/',(req,res)=>{
-
-    res.render('index')
-})
-
+app.use('/users',usersRouter)
+app.use('/', indexRouter)
+app.use('/products',productsRouter)
 
 
 
