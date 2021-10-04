@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 
-// 'mongodb://localhost/GetirClone'
+const dbURI2 = 'mongodb://localhost/GetirClone'
 
 //connect to mongodb
 const dbURI =
