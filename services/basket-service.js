@@ -1,57 +1,40 @@
 const BaseService = require('./base-service')
-const Basket = require('../models/basket')
-const Product = require('../models/product')
-const User = require('../models/user')
+const userService = require('./user-service')
 
 class BasketService extends BaseService {
-  async findById(id) {
-    return this.findBy('id', id)
-  }
-  async addProductToBasket(product) {
-    this.basket = {}
-    this.basket.products = []
-    this.basket.products.push(product) // mongoose schemaya a göre ok mi bak
-    //await this.basket.addToBasketTotal(product.price)
+  async addProductToBasket(userId, product) {
+    const newUser = await userService.find(userId)
+    await newUser.basket.products.push(product)
 
-    //console.log(this.basket)
-    return this.basket.products
+    newUser.basket.basketTotal = newUser.basket.basketTotal + product.price
+
+    await userService.update(userId, newUser)
+
+    return newUser
   }
 
-  async addToBasketTotal(price) {
-    return new Promise((resolve, reject) => {
-      ;(this.basketTotal = this.basketTotal + price),
-        (err) => {
-          if (err) return reject(err)
-          resolve(this.basketTotal)
-        }
-    })
+  async removeProductFromBasket(userId, product) {
+    const newUser = await userService.find(userId)
+    const index = await newUser.basket.products.indexOf(product)
+    await newUser.basket.products.splice(index, 1)
+
+    newUser.basket.basketTotal = newUser.basket.basketTotal - product.price
+    if (newUser.basket.basketTotal <= 0) {
+      newUser.basket.basketTotal = 0
+    }
+
+    await userService.update(userId, newUser)
+
+    return newUser
   }
 
-  async removeProductFromBasket(product) {
-    const index = this.basket.product.indexOf(product) // mongoose a göre yazılabilir mi bak
-    this.basket.product.splice(index, 1)
-    await this.basket.removeFromBasketTotal(product.price)
-    return this.basket.product
-  }
-  removeFromBasketTotal(price) {
-    return new Promise((resolve, reject) => {
-      ;(this.basketTotal = this.basketTotal - price),
-        (err) => {
-          if (err) return reject(err)
-          resolve(this.basketTotal)
-        }
-    })
-  }
-  emptyBasket() {
-    // mongoose schemaya göre düzenlenmesi lazım
-    return new Promise((resolve, reject) => {
-      ;(this.basket = new Basket([], 0)),
-        (err) => {
-          if (err) return reject(err)
-          resolve(this.basket)
-        }
-    })
+  async emptyUserBasket(userId) {
+    const newUser = await userService.find(userId)
+    newUser.basket.products = []
+    newUser.basket.basketTotal = 0
+    await userService.update(userId, newUser)
+    return newUser
   }
 }
 
-module.exports = new BasketService(Basket)
+module.exports = new BasketService()

@@ -1,53 +1,27 @@
 const BaseService = require('./base-service')
-const Order = require('../models/order')
-const Basket = require('../models/basket')
-const User = require('../models/user')
-
+const { emptyUserBasket } = require('./basket-service')
+const userService = require('./user-service')
 class OrderService extends BaseService {
-  async findByName(name) {
-    return this.findBy('name', name)
+  async activateOrder(userId) {
+    const newUser = await userService.find(userId)
+    newUser.order.activeOrderTotal = newUser.basket.basketTotal
+    await userService.update(userId, newUser)
+    return newUser
   }
 
-  //mongoose schemasına göre düzenlenmesi gerekiyor
-  finalizeOrder() {
-    return new Promise((resolve, reject) => {
-      ;(this.order.activeOrder = [this.basket.product]),
-        (err) => {
-          if (err) return reject(err)
-          resolve(this.order.activeOrder)
-        }
-      ;(this.basket.product = []),
-        (err) => {
-          if (err) return reject(err)
-          resolve(this.basket.product)
-        }
-      ;(this.basket.basketTotal = this.order.orderTotal),
-        (err) => {
-          if (err) return reject(err)
-          resolve(this.basket.basketTotal)
-        }
-      ;(this.basket.basketTotal = 0),
-        (err) => {
-          if (err) return reject(err)
-          resolve(this.basket.basketTotal)
-        }
-    })
-  }
-  //mongoose schemasına göre düzenlenmesi gerekiyor
-  removeOrder() {
-    return new Promise((resolve, reject) => {
-      ;(this.order.activeOrder = []),
-        (err) => {
-          if (err) return reject(err)
-          resolve(this.order.activeOrder)
-        }
-      ;(this.order.orderTotal = 0),
-        (err) => {
-          if (err) return reject(err)
-          resolve(this.order.orderTotal)
-        }
-    })
+  async finalizeOrder(userId) {
+    const newUser = await userService.find(userId)
+    newUser.order.oldOrderTotal += newUser.order.activeOrderTotal
+
+    newUser.order.activeOrderTotal = 0
+    newUser.order.numberOfOrders++
+
+    newUser.basket.products = []
+    newUser.basket.basketTotal = 0
+
+    await userService.update(userId, newUser)
+
+    return newUser
   }
 }
-
-module.exports = new OrderService(Order)
+module.exports = new OrderService()
