@@ -5,6 +5,9 @@ class ProductService extends BaseService {
   async findByName(name) {
     return this.findBy('name', name)
   }
+  async findById(id) {
+    return this.findBy('id', id)
+  }
 }
 
 module.exports = new ProductService(Product)
