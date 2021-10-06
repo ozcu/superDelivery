@@ -13,12 +13,12 @@ app.set('view engine', 'pug')
 const indexRouter = require('./routes/index')
 const usersRouter = require('./routes/users')
 const productsRouter = require('./routes/products')
-const couriersRouter = require('./routes/couriers')
+const depotsRouter = require('./routes/depots')
 
 app.use('/', indexRouter)
 app.use('/users', usersRouter)
 app.use('/products', productsRouter)
-app.use('/couriers', couriersRouter)
+app.use('/depots', depotsRouter)
 
 app.listen(3000, () => {
   console.log('started listening')

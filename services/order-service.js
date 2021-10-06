@@ -1,5 +1,4 @@
 const BaseService = require('./base-service')
-const { emptyUserBasket } = require('./basket-service')
 const userService = require('./user-service')
 class OrderService extends BaseService {
   async activateOrder(userId) {

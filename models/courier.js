@@ -2,8 +2,8 @@ const mongoose = require('mongoose')
 
 const CourierSchema = new mongoose.Schema(
   {
-    name: { type: String, required: true, minlength: 2 },
-    depotAddress: String,
+    courierName: { type: String, required: true, minlength: 2 },
+    rating: Number,
   },
   { timestamps: true },
 )

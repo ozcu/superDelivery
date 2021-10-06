@@ -3,7 +3,7 @@ require('./mongo-connection')
 const {
   userService,
   productService,
-  courierService,
+  depotService,
 } = require('./services/index')
 
 async function main() {
