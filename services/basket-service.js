@@ -1,31 +1,34 @@
 const BaseService = require('./base-service')
 const userService = require('./user-service')
+const productService = require('./product-service')
 
 class BasketService extends BaseService {
-  async addProductToBasket(userId, product) {
-    const newUser = await userService.find(userId)
-    await newUser.basket.products.push(product)
+  async addProductToBasket(userId, productId) {
+    const [newUser] = await userService.findById(userId)
+    const [newProduct] = await productService.findById(productId)
 
-    newUser.basket.basketTotal = newUser.basket.basketTotal + product.price
+    await newUser.basket.products.push(newProduct)
+    newUser.basket.basketTotal += newProduct.price
 
     await userService.update(userId, newUser)
 
-    return newUser
+    return newUser, newProduct
   }
 
-  async removeProductFromBasket(userId, product) {
-    const newUser = await userService.find(userId)
-    const index = await newUser.basket.products.indexOf(product)
-    await newUser.basket.products.splice(index, 1)
+  async removeProductFromBasket(userId, productId) {
+    const [newUser] = await userService.findById(userId)
+    const [newProduct] = await productService.findById(productId)
 
-    newUser.basket.basketTotal = newUser.basket.basketTotal - product.price
+    const index = await newUser.basket.products.indexOf(newProduct)
+    await newUser.basket.products.splice(index, 1)
+    newUser.basket.basketTotal -= newProduct.price
+
     if (newUser.basket.basketTotal <= 0) {
       newUser.basket.basketTotal = 0
     }
-
     await userService.update(userId, newUser)
 
-    return newUser
+    return newUser, newProduct
   }
 
   async emptyUserBasket(userId) {
