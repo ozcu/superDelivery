@@ -12,25 +12,30 @@ router.get('/', async (req, res) => {
 })
 
 router.get('/:userId', async (req, res) => {
-  const user = await userService.find(req.params.userId)
-  res.render('user', { user: user })
-
-  //61596be36be47a137370f548
-
-  //null gelirse 404 verdiremedim promise'e takılıyor catch koyunca property name patlıyor view içinde
+  try {
+    const user = await userService.find(req.params.userId)
+    res.render('user', { user: user })
+  } catch (e) {
+    return res.status(404).send('Cannot find user!')
+  }
 })
-
-//order method eksik frontend öncesi buna odaklan ugurhan.order
 
 router.post('/', async (req, res) => {
   await userService.insert(req.body)
-  console.log(req.body)
   res.send(req.body)
 })
 
-router.delete('/:productId', async (req, res) => {
-  await userService.removeBy('id', req.params.productId)
+router.delete('/:userId', async (req, res) => {
+  await userService.removeBy('id', req.params.userId)
   res.send('OK')
+})
+
+router.patch('/:userId', async (req, res) => {
+  const { userId } = req.params
+  const { name } = req.body
+
+  await userService.update(userId, { name })
+  //Does patch only works with one property?
 })
 
 module.exports = router

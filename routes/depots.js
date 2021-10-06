@@ -12,15 +12,16 @@ router.get('/', async (req, res) => {
 })
 
 router.get('/:depotId', async (req, res) => {
-  const depot = await depotService.find(req.params.depotId)
-  res.render('depot', { depot: depot })
-
-  //null gelirse 404 verdiremedim promise'e takılıyor catch koyunca property name patlıyor view içinde
+  try {
+    const depot = await depotService.find(req.params.depotId)
+    res.render('depot', { depot: depot })
+  } catch (e) {
+    return res.status(404).send('Cannot find depot!')
+  }
 })
 
 router.post('/', async (req, res) => {
   await depotService.insert(req.body)
-  console.log(req.body)
   res.send(req.body)
 })
 
@@ -28,5 +29,12 @@ router.delete('/:depotId', async (req, res) => {
   await depotService.removeBy('id', req.params.depotId)
   res.send('OK')
 })
+router.patch('/:depotId', async (req, res) => {
+  const { depotId } = req.params
+  const { name } = req.body
 
+  await depotService.update(depotId, { name })
+  //Does patch only works with one property?
+  //patch doesnt work excep user router?
+})
 module.exports = router

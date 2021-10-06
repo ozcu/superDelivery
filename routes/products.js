@@ -13,10 +13,12 @@ router.get('/', async (req, res) => {
 })
 
 router.get('/:productId', async (req, res) => {
-  const product = await productService.find(req.params.productId)
-  // if(!product) return res.status(404).send('Cannot find product') //***bu kısım promise handlinge takılıyor try catch calısmadı
-  res.render('product', { product: product })
-  //61599b3dcbd114d45f151b10
+  try {
+    const product = await productService.find(req.params.productId)
+    res.render('product', { product: product })
+  } catch (e) {
+    return res.status(404).send('Cannot find product!')
+  }
 })
 
 router.post('/', async (req, res) => {
@@ -29,4 +31,10 @@ router.delete('/:productId', async (req, res) => {
   res.send('OK')
 })
 
+router.patch('/:productId', async (req, res) => {
+  const { productId } = req.params
+  const { name } = req.body
+
+  await productService.update(productId, { name })
+})
 module.exports = router
