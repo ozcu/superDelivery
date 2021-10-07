@@ -6,7 +6,7 @@ class UserService extends BaseService {
     return this.findBy('name', name)
   }
   async findById(id) {
-    return this.findBy('id', id)
+    return this.findBy('_id', id)
   }
 }
 
