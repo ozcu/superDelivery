@@ -20,13 +20,13 @@ const courierBookingService = require('./services/courier-booking-service')
 
 async function main() {
   try {
-    /* const ugurhan = new User({
-      name: 'Ugurhan',
+    /*  const tugberk = new User({
+      name: 'tugberk',
       email: 'asd@gmail.com',
-      telephone: '+90555555555',
-      address: 'Bostancı mh',
-      addressGeolocation: [40.955, 29.104],
-      creditCardInfo: '55555555555555551023111',
+      telephone: '+44',
+      address: 'test mh',
+      addressGeolocation: [40.905, 29.104],
+      creditCardInfo: '555555',
       basket: { products: [], basketTotal: 0 },
       order: {
         activeOrderTotal: 0,
@@ -34,7 +34,7 @@ async function main() {
         oldOrderTotal: 0,
       },
     })
-    userService.save(ugurhan) */
+    userService.save(tugberk) */
     /* const bostanciDepot = new Depot({
       name: 'Bostancı Depot',
       address:
@@ -64,10 +64,7 @@ async function main() {
     })
 
 
-    /* await basketService.addProductToBasket(
-      '615dba0897e673774db88e8b',
-      '615dba80444e59a99c646bf0',
-    ) */
+   
     /*  basketService.removeProductFromBasket(
       '615dba0897e673774db88e8b',
       '615dba80444e59a99c646bf0',
@@ -84,6 +81,10 @@ async function main() {
       '615dba6c91a8a7bf66d87b45',
       '615dc283d8ff7a0b05c577a8',
     ) */
+    /*  await basketService.addProductToBasket(
+      '615ee811cc0c7c8ffea7cbc7',
+      '615dffd94ecfa7a3ee246df0',
+    )  */
   } catch (e) {
     return console.log(e)
   }
