@@ -4,30 +4,30 @@
 POST http://localhost:3000/users HTTP/1.1
 Content-Type: application/json
 
-{"name": "dede","email": "asd@gmail.com","telephone":" +90555555555","address": "Bostancı mh","addressGeolocation": [40.955, 29.104],"creditCardInfo": "55555555555555551023111","basket": { "products": [], "basketTotal": 0 },"order": {"activeOrderTotal": 0,"numberOfOrders": 0,"oldOrderTotal": 0}}
+{"name": "testuser","email": "asd@gfgfdmail.com","telephone":" +dfg","address": "Bostdfgancı mh","addressGeolocation": [40.055, 19.104],"creditCardInfo": "423","basket": { "products": [], "basketTotal": 0 },"order": {"activeOrderTotal": 0,"numberOfOrders": 0,"oldOrderTotal": 0}}
 
 
 ###
-GET http://localhost:3000/users/615dd4e0eb1ffef14e3f454 HTTP/1.1
+GET http://localhost:3000/users/615eb152db71b8518a3ec409 HTTP/1.1
 Content-Type: application/json
 
 ###
 DELETE http://localhost:3000/users/615dd831eb1ffef14e3d5457 HTTP/1.1
 
 ###
-PATCH http://localhost:3000/users/615df991ffe8f14fa761e1cc HTTP/1.1
+PATCH http://localhost:3000/users/615eb13a3919f8e9214fddc8 HTTP/1.1
 content-type: application/json
 
-{"name": "test name"}
+{"name": "test name2"}
 
 //Product Requests
 ###
 POST http://localhost:3000/products HTTP/1.1
 Content-Type: application/json
 
-{"name": "Water","photo": "Water Photo","description":"1x bottle","price":"1.0","category":"Water"} 
+{"name": "Bread","photo": "Bread Photo","description":"1x 120g","price":"1.0","category":"Baked Product(s)"} 
 ###
-GET http://localhost:3000/products/615dffd94ecfa7a3ee246df0 HTTP/1.1
+GET http://localhost:3000/products/615eb13a3919f8e9214fddc8 HTTP/1.1
 Content-Type: application/json
 ###
 DELETE http://localhost:3000/products/615dffd94ecfa7a3ee246df0 HTTP/1.1
@@ -66,13 +66,33 @@ Content-Type: application/json
 ###
 DELETE http://localhost:3000/couriers/615e03abd2c93a1f7f7696ce HTTP/1.1
 ###
-PATCH http://localhost:3000/couriers/615e03abd2c93a1f7f7696ce HTTP/1.1
+PATCH http://localhost:3000/couriers/615e105fda468981a83795cf HTTP/1.1
 content-type: application/json
 
-{"name": "test name"}
+{"name": "test"}
 ///Basket Operation Requests
 ###
-POST http://localhost:3000/615df991ffe8f14fa761e1cc/615e00234ecfa7a3ee246df4 HTTP/1.1
+POST http://localhost:3000/baskets/add/615ee811cc0c7c8ffea7cbc7/615ee8bbe4a1ebc3711ad7fc HTTP/1.1
 Content-Type: application/json
-//neden çalışmadı nasıl debug edebilirim?
+###
+POST http://localhost:3000/baskets/remove/615ee811cc0c7c8ffea7cbc7/615dffd94ecfa7a3ee246df0 HTTP/1.1
+Content-Type: application/json
+###
+POST http://localhost:3000/baskets/emptyBasket/615ee811cc0c7c8ffea7cbc7 HTTP/1.1
+Content-Type: application/json
 
+///Courier-Bookings Requests
+###
+POST http://localhost:3000/courier-booking/add/615e03abd2c93a1f7f7696ce/615e016d87e204e177bb2b9d HTTP/1.1
+Content-Type: application/json
+
+###
+POST http://localhost:3000/courier-booking/remove/615e03abd2c93a1f7f7696ce/615e016d87e204e177bb2b9d HTTP/1.1
+Content-Type: application/json
+
+//Order Requests
+###
+POST http://localhost:3000/orders/activateOrder/615dd4e0eb1ffef14e3d5454 HTTP/1.1
+
+###
+POST http://localhost:3000/orders/finalizeOrder/615dd4e0eb1ffef14e3d5454 HTTP/1.1
