@@ -31,7 +31,7 @@ router.delete('/:userId', async (req, res) => {
 })
 
 router.patch('/:userId', async (req, res) => {
-  const { userId } = req.params
+  const { userId } = req.params.userId
   const { name } = req.body
 
   await userService.update(userId, { name })

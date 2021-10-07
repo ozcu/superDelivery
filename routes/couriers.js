@@ -31,11 +31,12 @@ router.delete('/:courierId', async (req, res) => {
 })
 
 router.patch('/:courierId', async (req, res) => {
-  const { courierId } = req.params
+  const { courierId } = req.params.courierId
   const { name } = req.body
 
   await courierService.update(courierId, { name })
   //Does patch only works with one property?
+  //req.params.courierId silinmesi gerekiyor test et ilgili yerleri düzelt.
 })
 
 module.exports = router
