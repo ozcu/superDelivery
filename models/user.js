@@ -14,5 +14,6 @@ const UserSchema = new mongoose.Schema({
     oldOrderTotal: Number,
   },
 })
+
 //UserSchema.plugin(require('mongoose-autopopulate'))
 module.exports = mongoose.model('User', UserSchema)
