@@ -1,30 +1,25 @@
 <template>
     <div id="nav">
         <router-link class="home" to="/">Home</router-link>
-        <router-link class="login" v-show="!user" to="/login"
+        <router-link class="login" v-show="!userLogged" to="/login"
             >Login</router-link
         >
-        <router-link
-            class="register"
-            @click="toggleModal"
-            v-show="!user"
-            to="/register"
+        <router-link class="register" v-show="!userLogged" to="/register"
             >Sign Up</router-link
         >
-        <router-link class="logout" @click="logoutHandle" v-show="user">
+        <router-link class="logout" @click="logoutHandle" v-show="userLogged">
             Logout
         </router-link>
     </div>
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex'
+import { mapState } from 'vuex'
 export default {
     name: 'Navbar',
 
     computed: {
-        ...mapState(['user']),
-        ...mapState(['showModal']),
+        ...mapState(['userLogged']),
     },
     methods: {
         logoutHandle() {
@@ -32,7 +27,6 @@ export default {
             this.$store.state.user = null
             this.$router.push('/').catch(() => {})
         },
-        ...mapActions(['toggleModal']),
     },
 }
 </script>
