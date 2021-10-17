@@ -4,27 +4,27 @@
         <router-link class="login" v-show="!user" to="/login"
             >Login</router-link
         >
-        <router-link class="register" v-show="!user" to="/register"
+        <router-link
+            class="register"
+            @click="toggleModal"
+            v-show="!user"
+            to="/register"
             >Sign Up</router-link
         >
-        <router-link
-            class="logout"
-            href="javascript:void(0)"
-            @click="logoutHandle"
-            v-show="user"
-        >
+        <router-link class="logout" @click="logoutHandle" v-show="user">
             Logout
         </router-link>
     </div>
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapActions } from 'vuex'
 export default {
     name: 'Navbar',
 
     computed: {
         ...mapState(['user']),
+        ...mapState(['showModal']),
     },
     methods: {
         logoutHandle() {
@@ -32,36 +32,39 @@ export default {
             this.$store.state.user = null
             this.$router.push('/').catch(() => {})
         },
+        ...mapActions(['toggleModal']),
     },
 }
 </script>
 
-<style>
-#nav {
-    padding: 10px;
-    font-size: 20px;
-    color: white;
-    display: grid;
-    margin: 0 auto;
-    grid-template-columns: repeat(3, 1fr);
-    text-decoration: none;
-    background-color: #51739b;
+<style lang="scss">
+body {
+    margin: 0;
+    background: #eee;
 }
 
-.login {
-    color: white;
-    text-decoration: none;
-}
-.logout {
-    color: white;
-    text-decoration: none;
-}
-.register {
-    color: white;
-    text-decoration: none;
-}
-.home {
-    color: white;
-    text-decoration: none;
+#nav {
+    background-color: white;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-around;
+    padding: 30px;
+    gap: 50px;
+    padding-left: 100px;
+    padding-right: 100px;
+
+    a {
+        text-decoration: none;
+        font-weight: bold;
+        color: #2c3e50;
+
+        &.router-link-exact-active {
+            color: #0b6dff;
+        }
+    }
+    .login {
+        margin-left: auto;
+    }
 }
 </style>
