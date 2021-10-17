@@ -1,6 +1,6 @@
 <template>
     <form class="form" @submit.prevent="handleSubmit">
-        <h3>Login</h3>
+        <h3 class="title">Login</h3>
         <div class="form-group">
             <label>Email</label>
             <input type="email" v-model="email" placeholder="Email" />
@@ -33,7 +33,8 @@ export default {
                 email: this.email,
                 password: this.password,
             }
-
+            //JWT Token with Header new server side missing
+            //Token Header will change into cookie
             const response = await axios.post('/auth/login', data)
             window.localStorage.setItem('token', response.data.access_token)
             console.log(response.data.access_token)
@@ -48,13 +49,7 @@ export default {
 </script>
 
 <style>
-.form {
-    height: auto;
-    width: 100px;
-    margin: 0 auto;
-    display: grid;
-    grid-template-rows: repeat(2, 1fr);
-
-    justify-content: center;
+.title {
+    text-align: center;
 }
 </style>
