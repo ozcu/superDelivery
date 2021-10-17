@@ -1,6 +1,6 @@
 <script>
 import axios from 'axios'
-import { mapState, mapActions } from 'vuex'
+
 export default {
     data() {
         return {
@@ -12,19 +12,17 @@ export default {
             passwordError: '',
         }
     },
-    computed: {
-        ...mapState(['showModal']),
-    },
+
     methods: {
-        ...mapActions(['toggleModal']),
+        routeHome() {
+            this.$router.push('/')
+        },
 
         handleSubmit() {
             const data = {
-                firstName: this.firstName,
-                lastName: this.lastName,
+                name: this.name,
                 email: this.email,
                 password: this.password,
-                passwordConfirm: this.passwordConfirm,
             }
             axios.post('users', data)
 
@@ -35,7 +33,7 @@ export default {
 </script>
 
 <template>
-    <div class="backdrop" @click.self="toggleModal">
+    <div class="backdrop" @click.self="routeHome">
         <div class="modal">
             <div class="container">
                 <h1>Register</h1>
