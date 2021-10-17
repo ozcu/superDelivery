@@ -28,5 +28,5 @@ app.use('/courier-booking', courierBookingRouter)
 app.use('/orders', ordersRouter)
 
 app.listen(3000, () => {
-  console.log('started listening')
+    console.log('server started listening port on 3000')
 })

@@ -4,11 +4,11 @@
 POST http://localhost:3000/users HTTP/1.1
 Content-Type: application/json
 
-{"name": "testuser","email": "asd@gfgfdmail.com","telephone":" +dfg","address": "Bostdfgancı mh","addressGeolocation": [40.055, 19.104],"creditCardInfo": "423","basket": { "products": [], "basketTotal": 0 },"order": {"activeOrderTotal": 0,"numberOfOrders": 0,"oldOrderTotal": 0}}
+{"name": "testuser","email": "gg@gfgfdmail.com","password":"qwe123qwe","telephone":" +555555","address": "Bostdfgancı mh","addressGeolocation": [40.055, 19.104],"creditCardInfo": "51515252","basket": { "products": [], "basketTotal": 0 },"order": {"activeOrderTotal": 0,"numberOfOrders": 0,"oldOrderTotal": 0}}
 
 
 ###
-GET http://localhost:3000/users/615eb152db71b8518a3ec409 HTTP/1.1
+GET http://localhost:3000/users/616c5e5dbf046d91a6827bff HTTP/1.1
 Content-Type: application/json
 
 ###
@@ -96,3 +96,5 @@ POST http://localhost:3000/orders/activateOrder/615dd4e0eb1ffef14e3d5454 HTTP/1.
 
 ###
 POST http://localhost:3000/orders/finalizeOrder/615dd4e0eb1ffef14e3d5454 HTTP/1.1
+
+
