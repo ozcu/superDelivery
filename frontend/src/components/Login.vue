@@ -1,6 +1,6 @@
 <template>
     <form class="form" @submit.prevent="handleSubmit">
-        <h3 class="title">Login</h3>
+        <h1 class="title">Login</h1>
         <div class="form-group">
             <label>Email</label>
             <input type="email" v-model="email" placeholder="Email" />
@@ -26,7 +26,6 @@ export default {
             password: '',
         }
     },
-    computed: {},
     methods: {
         async handleSubmit() {
             const data = {
@@ -51,5 +50,8 @@ export default {
 <style>
 .title {
     text-align: center;
+    color: #0b6dff;
+    border: none;
+    padding: 0;
 }
 </style>
