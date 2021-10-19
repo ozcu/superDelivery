@@ -18,15 +18,24 @@ export default {
             this.$router.push('/')
         },
 
-        handleSubmit() {
+        async registerUser() {
             const data = {
                 name: this.name,
+                telephone: this.telephone,
                 email: this.email,
                 password: this.password,
             }
-            axios.post('users', data)
-
-            this.$router.push('/login')
+            try {
+                const request = await axios.post(
+                    'http://localhost:3000/users',
+                    data,
+                )
+                console.log(data)
+                this.$router.push('/login')
+                return request
+            } catch (e) {
+                throw new Error('cannot register the user!')
+            }
         },
     },
 }
@@ -37,7 +46,7 @@ export default {
         <div class="modal">
             <div class="container">
                 <h1>Register</h1>
-                <form @submit.prevent="handleSubmit">
+                <form @submit.prevent="registerUser">
                     <label> Name Surname: </label>
                     <input type="name" required v-model="name" />
                     <label> Telephone: </label>
