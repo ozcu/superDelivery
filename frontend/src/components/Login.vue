@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import axios from 'axios'
+/* import axios from 'axios' */
 
 export default {
     name: 'Login',
@@ -32,16 +32,18 @@ export default {
                 email: this.email,
                 password: this.password,
             }
+
+            console.log(data)
             //JWT Token with Header new server side missing
             //Token Header will change into cookie
-            const response = await axios.post('/auth/login', data)
+            /*   const response = await axios.post('/auth/login', data)
             window.localStorage.setItem('token', response.data.access_token)
             console.log(response.data.access_token)
             console.log(response.data.user)
 
-            this.$store.state.user = response.data.user
+            this.$store.state.user = response.data.user 
 
-            this.$router.push('/')
+            this.$router.push('/')*/
         },
     },
 }
