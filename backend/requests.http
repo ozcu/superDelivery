@@ -1,0 +1,106 @@
+
+//User Requests
+###
+POST http://localhost:3000/users HTTP/1.1
+Content-Type: application/json
+
+{"name": "ugurl3lghan","email": "gg@jjjj.com","password":"qw3333e123qwe","telephone":" +555555","address": "Bostdfga55ncı mh","addressGeolocation": [40.0455, 19.1704],"creditCardInfo": "54545","basket": { "products": [], "basketTotal": 0 },"order": {"activeOrderTotal": 0,"numberOfOrders": 0,"oldOrderTotal": 0}}
+
+###
+POST http://localhost:3000/register HTTP/1.1
+Content-Type: application/json
+
+{"name":"requ4ired","email":"osman@osma4n.com","password":"1235qwe123"}
+
+###
+GET http://localhost:3000/users/616eeee048951d9b9e112f34 HTTP/1.1
+Content-Type: application/json
+
+
+###
+DELETE http://localhost:3000/users/615dd831eb1ffef14e3d5457 HTTP/1.1
+
+###
+PATCH http://localhost:3000/users/615eb13a3919f8e9214fddc8 HTTP/1.1
+content-type: application/json
+
+{"name": "test name2"}
+
+//Product Requests
+###
+POST http://localhost:3000/products HTTP/1.1
+Content-Type: application/json
+
+{"name": "Bread","photo": "Bread Photo","description":"1x 120g","price":"1.0","category":"Baked Product(s)"} 
+###
+GET http://localhost:3000/products/615eb13a3919f8e9214fddc8 HTTP/1.1
+Content-Type: application/json
+###
+DELETE http://localhost:3000/products/615dffd94ecfa7a3ee246df0 HTTP/1.1
+###
+PATCH http://localhost:3000/products/615dffd94ecfa7a3ee246df0 HTTP/1.1
+content-type: application/json
+
+{"name": "test name"}
+
+
+
+//Depot Requests
+###
+POST http://localhost:3000/depots HTTP/1.1
+Content-Type: application/json
+
+{"name": "Kucukyalı","address": "test adress","geolocation":[41.150,27.650],"personnel":[]}
+
+###
+GET http://localhost:3000/depots/615e016d87e204e177bb2b9d HTTP/1.1
+Content-Type: application/json
+
+###
+DELETE http://localhost:3000/depots/615e016d87e204e177bb2b9d HTTP/1.1
+###
+PATCH http://localhost:3000/depots/615e01c287e204e177bb2ba1 HTTP/1.1
+content-type: application/json
+
+{"name": "test name"}
+//Courier Requests
+###
+POST http://localhost:3000/couriers HTTP/1.1
+Content-Type: application/json
+
+{"courierName": "Ahmet","rating": 3}
+###
+DELETE http://localhost:3000/couriers/615e03abd2c93a1f7f7696ce HTTP/1.1
+###
+PATCH http://localhost:3000/couriers/615e105fda468981a83795cf HTTP/1.1
+content-type: application/json
+
+{"name": "test"}
+///Basket Operation Requests
+###
+POST http://localhost:3000/baskets/add/616eeee048951d9b9e112f34/615dffd94ecfa7a3ee246df0 HTTP/1.1
+Content-Type: application/json
+###
+POST http://localhost:3000/baskets/remove/615ee811cc0c7c8ffea7cbc7/615dffd94ecfa7a3ee246df0 HTTP/1.1
+Content-Type: application/json
+###
+POST http://localhost:3000/baskets/emptyBasket/615ee811cc0c7c8ffea7cbc7 HTTP/1.1
+Content-Type: application/json
+
+///Courier-Bookings Requests
+###
+POST http://localhost:3000/courier-booking/add/615e03abd2c93a1f7f7696ce/615e016d87e204e177bb2b9d HTTP/1.1
+Content-Type: application/json
+
+###
+POST http://localhost:3000/courier-booking/remove/615e03abd2c93a1f7f7696ce/615e016d87e204e177bb2b9d HTTP/1.1
+Content-Type: application/json
+
+//Order Requests
+###
+POST http://localhost:3000/orders/activateOrder/616eeee048951d9b9e112f34 HTTP/1.1
+
+###
+POST http://localhost:3000/orders/finalizeOrder/616eeee048951d9b9e112f34 HTTP/1.1
+
+

@@ -1,0 +1,20 @@
+extends layout
+block content
+
+
+    h1 User Detail
+    p <strong>Name: </strong> #{user.name}
+    p <strong>Email: </strong>#{user.email}
+    p <strong>Telephone: </strong>#{user.telephone}
+    p <strong>Address: </strong>#{user.address}
+   
+
+    h2 Order History 
+//- bu kısım daha hazır değil
+    if user.order.length 
+        ol
+            each order in user.order 
+                li From #{order.origin} to #{order.destination}
+    else 
+        p No Orders
+
