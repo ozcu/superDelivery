@@ -29,8 +29,6 @@ export default {
     methods: {
         async loginUser() {
             const data = {
-                name: this.name,
-                telephone: this.telephone,
                 email: this.email,
                 password: this.password,
             }
@@ -47,9 +45,9 @@ export default {
                     //bu kısımı catch errora düşmüyor
                     this.emailError = output.errors.email
                     this.passwordError = output.errors.password
-                } else {
-                    alert('Registration completed, please login')
-                    this.$router.push('/login')
+                }
+                if (output.user) {
+                    this.$router.push('/home')
                 }
                 return
             } catch (err) {

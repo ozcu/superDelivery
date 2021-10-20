@@ -10,7 +10,7 @@ Content-Type: application/json
 POST http://localhost:3000/register HTTP/1.1
 Content-Type: application/json
 
-{"name":"requ4ired","email":"osman@osma4n.com","password":"1235qwe123"}
+{"name":"requ4ired","email":"osman@osma4n.com","password":"1"}
 
 ###
 GET http://localhost:3000/users/616eeee048951d9b9e112f34 HTTP/1.1
