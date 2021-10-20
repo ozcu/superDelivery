@@ -1,6 +1,8 @@
 const express = require('express')
 const router = express.Router()
 const { userService } = require('../services')
+const jwt = require('jsonwebtoken')
+const { response } = require('express')
 
 //handle errors
 const handleErrors = (err) => {
@@ -22,15 +24,28 @@ const handleErrors = (err) => {
     return errors
 }
 
-router.post('/', async (req, res) => {
-    const { email, password } = req.body
+const maxAge = 1 * 24 * 60 * 60 //  valid for 1 day
 
+//create token
+const createToken = (id) => {
+    return jwt.sign({ id }, 'secretid', {
+        expiresIn: maxAge,
+    })
+}
+
+router.post('/', async (req, res) => {
     try {
-        await userService.insert({ email, password })
-        res.status(201).json({ email, password })
+        const user = await userService.insert(req.body)
+        const token = createToken(user._id)
+        res.cookie('jwt', token, {
+            httpOnly: true,
+            maxAge: maxAge * 1000,
+        })
+
+        res.status(201).json({ user: user._id })
     } catch (err) {
         const errors = handleErrors(err)
-        return res.status(400).json({ errors })
+        return res.json({ errors }).sendStatus(400) // sırası ters olursa error texti yazamıyorum signupformda
     }
 })
 

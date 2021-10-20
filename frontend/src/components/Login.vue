@@ -1,5 +1,5 @@
 <template>
-    <form class="form" @submit.prevent="handleSubmit">
+    <form class="form" @submit.prevent="loginUser">
         <h1 class="title">Login</h1>
         <div class="form-group">
             <label>Email</label>
@@ -16,7 +16,7 @@
 </template>
 
 <script>
-/* import axios from 'axios' */
+import axios from 'axios'
 
 export default {
     name: 'Login',
@@ -27,23 +27,34 @@ export default {
         }
     },
     methods: {
-        async handleSubmit() {
+        async loginUser() {
             const data = {
+                name: this.name,
+                telephone: this.telephone,
                 email: this.email,
                 password: this.password,
             }
 
-            console.log(data)
-            //JWT Token with Header new server side missing
-            //Token Header will change into cookie
-            /*   const response = await axios.post('/auth/login', data)
-            window.localStorage.setItem('token', response.data.access_token)
-            console.log(response.data.access_token)
-            console.log(response.data.user)
+            try {
+                const res = await axios.post(
+                    'http://localhost:3000/login',
+                    data,
+                )
 
-            this.$store.state.user = response.data.user 
+                const output = await res.data
 
-            this.$router.push('/')*/
+                if (output.errors) {
+                    //bu kısımı catch errora düşmüyor
+                    this.emailError = output.errors.email
+                    this.passwordError = output.errors.password
+                } else {
+                    alert('Registration completed, please login')
+                    this.$router.push('/login')
+                }
+                return
+            } catch (err) {
+                throw new Error('cannot register the user!')
+            }
         },
     },
 }

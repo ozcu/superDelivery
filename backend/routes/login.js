@@ -1,6 +1,9 @@
 const express = require('express')
+
 const router = express.Router()
 const { userService } = require('../services')
+const User = require('../models/user')
+const bcrypt = require('bcrypt')
 
 router.post('/', async (req, res) => {
     try {
@@ -19,4 +22,20 @@ router.get('/', async (req, res) => {
         throw new Error('User Database cannot be loaded!')
     }
 })
+
+//burada kaldım user login auth
+/* userSchema.statics.login = async (email, password) => {
+    const user = await userService.find({ email })
+    if (user) {
+        const auth = await bcrypt.compare(password, user.password)
+        if (auth) {
+            return user
+        }
+        throw new Error('incorrect password')
+    }
+    throw new Error('incorrect email')
+}
+
+const User = mongoose.model('User', UserSchema) */
+
 module.exports = router

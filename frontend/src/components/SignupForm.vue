@@ -10,6 +10,7 @@ export default {
             password: '',
             terms: false,
             passwordError: '',
+            emailError: '',
         }
     },
 
@@ -25,15 +26,25 @@ export default {
                 email: this.email,
                 password: this.password,
             }
+
             try {
-                const request = await axios.post(
-                    'http://localhost:3000/users',
+                const res = await axios.post(
+                    'http://localhost:3000/register',
                     data,
                 )
-                console.log(data)
-                this.$router.push('/login')
-                return request
-            } catch (e) {
+
+                const output = await res.data
+
+                if (output.errors) {
+                    //bu kısımı catch errora düşmüyor
+                    this.emailError = output.errors.email
+                    this.passwordError = output.errors.password
+                } else {
+                    alert('Registration completed, please login')
+                    this.$router.push('/login')
+                }
+                return
+            } catch (err) {
                 throw new Error('cannot register the user!')
             }
         },
@@ -46,7 +57,7 @@ export default {
         <div class="modal">
             <div class="container">
                 <h1>Register</h1>
-                <form @submit.prevent="registerUser">
+                <form class="registerForm" @submit.prevent="registerUser">
                     <label> Name Surname: </label>
                     <input type="name" required v-model="name" />
                     <label> Telephone: </label>
@@ -58,8 +69,16 @@ export default {
                     />
                     <label> Email: </label>
                     <input type="email" required v-model="email" />
+                    <div v-if="emailError" class="error">
+                        {{ emailError }}
+                    </div>
                     <label> Password: </label>
-                    <input type="password" required v-model="password" />
+                    <input
+                        type="password"
+                        required
+                        minlength="6"
+                        v-model="password"
+                    />
                     <div v-if="passwordError" class="error">
                         {{ passwordError }}
                     </div>

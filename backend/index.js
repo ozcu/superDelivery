@@ -1,13 +1,14 @@
 require('./mongo-connection')
-
 const express = require('express')
 const cors = require('cors')
+const cookieParser = require('cookie-parser')
 
 const app = express()
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use(cors())
+app.use(cookieParser())
 
 app.set('view engine', 'pug')
 
@@ -19,6 +20,7 @@ const couriersRouter = require('./routes/couriers')
 const basketsRouter = require('./routes/baskets')
 const courierBookingRouter = require('./routes/courier-booking')
 const ordersRouter = require('./routes/orders')
+
 const loginRouter = require('./routes/login')
 const registerRouter = require('./routes/register')
 
