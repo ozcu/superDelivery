@@ -3,6 +3,7 @@ const jwt = require('jsonwebtoken')
 const router = express.Router()
 const { userService } = require('../services')
 const User = require('../models/user')
+const cookieParser = require('cookie-parser')
 
 //handle errors
 const handleErrors = (err) => {
@@ -51,12 +52,12 @@ router.post('/', async (req, res) => {
 
         const token = createToken(user._id)
         res.cookie('jwt', token, {
-            httpOnly: true,
+            httpOnly: false,
             maxAge: maxAge * 1000,
         })
 
         console.log('token generated:', token)
-        res.status(200).json({ user: user._id })
+        res.status(200).json({ token })
     } catch (err) {
         const errors = handleErrors(err)
         return res.json({ errors }).status(400) //tersi olduğunda objeyi alamıyorum json olarak vue'da fakat postman da geliyor ikisi de.
@@ -70,5 +71,15 @@ router.get('/', async (req, res) => {
         throw new Error('User Database cannot be loaded!')
     }
 })
+
+/* router.get('/set-cookies', async (req, res) => {
+    try {
+        const cookie = res.cookie('testCookie', true)
+        console.log(cookie.rawHeaders)
+        res.status(200).send('OK')
+    } catch (e) {
+        throw new Error('User Database cannot be loaded!')
+    }
+}) */
 
 module.exports = router
