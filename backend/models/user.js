@@ -34,6 +34,23 @@ UserSchema.pre('save', async function (next) {
     this.password = await bcrypt.hash(this.password, salt)
     next()
 })
+//check user and compare the password in hashed format
+UserSchema.statics.login = async function (email, password) {
+    const user = await this.findOne({ email })
+
+    if (user) {
+        console.log('user match in db', user.email)
+        const auth = await bcrypt.compare(password, user.password)
+        if (auth) {
+            console.log('password matched', auth)
+            return user
+        } else {
+            throw new Error('incorrect password')
+        }
+    } else {
+        throw new Error('incorrect email')
+    }
+}
 
 //UserSchema.plugin(require('mongoose-autopopulate'))
 const User = mongoose.model('User', UserSchema)
