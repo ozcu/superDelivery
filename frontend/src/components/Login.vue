@@ -5,10 +5,16 @@
             <label>Email</label>
             <input type="email" v-model="email" placeholder="Email" />
         </div>
+        <div v-if="emailError" class="error">
+            {{ emailError }}
+        </div>
 
         <div class="form-group">
             <label>Password</label>
             <input type="password" v-model="password" placeholder="Password" />
+        </div>
+        <div v-if="passwordError" class="error">
+            {{ passwordError }}
         </div>
 
         <button>Login</button>
@@ -23,7 +29,9 @@ export default {
     data() {
         return {
             email: '',
+            emailError: '',
             password: '',
+            passwordError: '',
         }
     },
     methods: {
@@ -40,18 +48,18 @@ export default {
                 )
 
                 const output = await res.data
+                //console.log(res.data)
 
                 if (output.errors) {
-                    //bu kısımı catch errora düşmüyor
                     this.emailError = output.errors.email
                     this.passwordError = output.errors.password
-                }
-                if (output.user) {
+                } else {
+                    alert('Login completed!')
                     this.$router.push('/home')
                 }
                 return
             } catch (err) {
-                throw new Error('cannot register the user!')
+                throw new Error('cannot login the user!')
             }
         },
     },
@@ -64,5 +72,12 @@ export default {
     color: #0b6dff;
     border: none;
     padding: 0;
+}
+
+.error {
+    color: #ff0062;
+    margin-top: 10px;
+    font-size: 0.8em;
+    font-weight: bold;
 }
 </style>
