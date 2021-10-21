@@ -2,12 +2,13 @@ require('./mongo-connection')
 const express = require('express')
 const cors = require('cors')
 const cookieParser = require('cookie-parser')
+const { requireAuth } = require('./middleware/authMiddleware')
 
 const app = express()
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
-app.use(cors())
+app.use(cors({ origin: true, credentials: true })) //axios ile cookie için gerekli diye ekledim ama emin degilim.
 app.use(cookieParser())
 
 app.set('view engine', 'pug')
@@ -26,7 +27,6 @@ const registerRouter = require('./routes/register')
 
 app.use('/', indexRouter)
 app.use('/users', usersRouter)
-app.use('/products', productsRouter)
 app.use('/depots', depotsRouter)
 app.use('/couriers', couriersRouter)
 app.use('/baskets', basketsRouter)
@@ -35,6 +35,8 @@ app.use('/orders', ordersRouter)
 
 app.use('/register', registerRouter)
 app.use('/login', loginRouter)
+
+app.use('/products', requireAuth, productsRouter)
 
 app.listen(3000, () => {
     console.log('server started listening port on 3000')
