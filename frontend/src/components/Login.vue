@@ -23,6 +23,7 @@
 
 <script>
 import axios from 'axios'
+import VueCookies from 'vue-cookies'
 
 export default {
     name: 'Login',
@@ -48,14 +49,19 @@ export default {
                 )
 
                 const output = await res.data
-                //console.log(res.data)
+                // const token = await res.body
+
+                if (output.token) {
+                    console.log(output.token)
+                    VueCookies.set('token', output.token, '1h')
+                }
 
                 if (output.errors) {
                     this.emailError = output.errors.email
                     this.passwordError = output.errors.password
                 } else {
                     alert('Login completed!')
-                    this.$router.push('/home')
+                    this.$router.push('/products')
                 }
                 return
             } catch (err) {
