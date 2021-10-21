@@ -2,7 +2,8 @@ const express = require('express')
 const router = express.Router()
 const { userService } = require('../services')
 const jwt = require('jsonwebtoken')
-const { response } = require('express')
+
+//login ve register birlesecek.
 
 //handle errors
 const handleErrors = (err) => {
@@ -41,11 +42,11 @@ router.post('/', async (req, res) => {
             httpOnly: true,
             maxAge: maxAge * 1000,
         })
-
+        console.log(user, token)
         res.status(201).json({ user: user._id })
     } catch (err) {
         const errors = handleErrors(err)
-        return res.json({ errors }).sendStatus(400) // sırası ters olursa error texti yazamıyorum signupformda
+        return res.status(400).json({ errors }) //tersi olduğunda objeyi alamıyorum json olarak vue'da fakat postman da geliyor ikisi de.
     }
 })
 
