@@ -34,9 +34,9 @@ export default {
                 )
 
                 const output = await res.data
+                console.log(res.data)
 
                 if (output.errors) {
-                    //bu kısımı catch errora düşmüyor
                     this.emailError = output.errors.email
                     this.passwordError = output.errors.password
                 } else {
