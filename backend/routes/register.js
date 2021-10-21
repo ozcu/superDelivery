@@ -42,7 +42,9 @@ router.post('/', async (req, res) => {
             httpOnly: true,
             maxAge: maxAge * 1000,
         })
+        const cookie = res.cookie('testCookie', true)
         console.log(user, token)
+        console.log(cookie)
         res.status(201).json({ user: user._id })
     } catch (err) {
         const errors = handleErrors(err)
