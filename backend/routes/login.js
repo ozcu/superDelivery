@@ -1,17 +1,65 @@
 const express = require('express')
-
+const jwt = require('jsonwebtoken')
 const router = express.Router()
 const { userService } = require('../services')
 const User = require('../models/user')
-const bcrypt = require('bcrypt')
 
+//handle errors
+const handleErrors = (err) => {
+    console.log(err.message, err.code)
+    let errors = { email: '', password: '' }
+
+    //incorrect email
+    if (err.message === 'incorrect email') {
+        errors.email = 'The email is not registered'
+    }
+    //incorrect password
+    if (err.message === 'incorrect password') {
+        errors.password = 'The password is incorrect'
+    }
+
+    //duplicate unique email error
+    if (err.code === 11000) {
+        errors.email = 'That email is already registered'
+        return errors
+    }
+
+    //validation errors
+    if (err.message.includes('User validation failed')) {
+        Object.values(err.errors).forEach(({ properties }) => {
+            errors[properties.path] = properties.message
+        })
+    }
+    return errors
+}
+
+const maxAge = 1 * 24 * 60 * 60 //  valid for 1 day
+//create token
+const createToken = (id) => {
+    return jwt.sign({ id }, 'secretid', {
+        expiresIn: maxAge,
+    })
+}
+//üstteki de aynı sekilde token ortak yerden gelecek
+//handle login request  *** direk user modeli kullanıyorum user service'e çevirmek için bak /services/user-service***
 router.post('/', async (req, res) => {
+    const { email: email, password: password } = req.body
+    console.log('request body ', email, password)
     try {
-        console.log(req.body)
-        await userService.insert(req.body)
-        res.send(req.body)
-    } catch (e) {
-        return res.status(400).send('Cannot insert user!')
+        const user = await User.login(email, password)
+        console.log('returned matched user', user.email)
+
+        const token = createToken(user._id)
+        res.cookie('jwt', token, {
+            httpOnly: true,
+            maxAge: maxAge * 1000,
+        })
+
+        console.log('token generated:', token)
+        res.status(200).json({ user: user._id })
+    } catch (err) {
+        const errors = handleErrors(err)
+        return res.json({ errors }).status(400) //tersi olduğunda objeyi alamıyorum json olarak vue'da fakat postman da geliyor ikisi de.
     }
 })
 
@@ -22,20 +70,5 @@ router.get('/', async (req, res) => {
         throw new Error('User Database cannot be loaded!')
     }
 })
-
-//burada kaldım user login auth
-/* userSchema.statics.login = async (email, password) => {
-    const user = await userService.find({ email })
-    if (user) {
-        const auth = await bcrypt.compare(password, user.password)
-        if (auth) {
-            return user
-        }
-        throw new Error('incorrect password')
-    }
-    throw new Error('incorrect email')
-}
-
-const User = mongoose.model('User', UserSchema) */
 
 module.exports = router
