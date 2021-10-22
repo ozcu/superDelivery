@@ -1,4 +1,6 @@
 require('./mongo-connection')
+require('dotenv').config()
+
 const express = require('express')
 const cors = require('cors')
 const cookieParser = require('cookie-parser')
@@ -8,7 +10,7 @@ const app = express()
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
-app.use(cors({ origin: true, credentials: true })) //axios ile cookie için gerekli diye ekledim ama emin degilim.
+app.use(cors({ origin: true, credentials: true }))
 app.use(cookieParser())
 
 app.set('view engine', 'pug')
@@ -36,8 +38,12 @@ app.use('/orders', ordersRouter)
 app.use('/register', registerRouter)
 app.use('/login', loginRouter)
 
-app.use('/products', requireAuth, productsRouter)
+app.use('/products', requireAuth, productsRouter) //backend view engine route auth
 
-app.listen(3000, () => {
-    console.log('server started listening port on 3000')
+app.use('/auth', requireAuth) //frontend auth router
+
+const port = process.env.PORT || 3000
+
+app.listen(port, () => {
+    console.log(`server started listening on port:${port}`)
 })
