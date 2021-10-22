@@ -25,12 +25,11 @@ const handleErrors = (err) => {
     return errors
 }
 
-const maxAge = 1 * 24 * 60 * 60 //  valid for 1 day
 
 //create token
 const createToken = (id) => {
-    return jwt.sign({ id }, 'secretid', {
-        expiresIn: maxAge,
+    return jwt.sign({ id }, process.env.JWTSECRETID, {
+        expiresIn: process.env.MAXAGE, //1 day
     })
 }
 
@@ -38,17 +37,15 @@ router.post('/', async (req, res) => {
     try {
         const user = await userService.insert(req.body)
         const token = createToken(user._id)
-        res.cookie('jwt', token, {
+        /*  res.cookie('jwt', token, {
             httpOnly: true,
             maxAge: maxAge * 1000,
-        })
-        const cookie = res.cookie('testCookie', true)
-        console.log(user, token)
-        console.log(cookie)
+        }) */
+
         res.status(201).json({ user: user._id })
     } catch (err) {
         const errors = handleErrors(err)
-        return res.status(400).json({ errors }) //tersi olduğunda objeyi alamıyorum json olarak vue'da fakat postman da geliyor ikisi de.
+        return res.status(400).json({ errors })
     }
 })
 

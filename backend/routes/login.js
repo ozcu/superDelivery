@@ -3,7 +3,6 @@ const jwt = require('jsonwebtoken')
 const router = express.Router()
 const { userService } = require('../services')
 const User = require('../models/user')
-const cookieParser = require('cookie-parser')
 
 //handle errors
 const handleErrors = (err) => {
@@ -34,11 +33,11 @@ const handleErrors = (err) => {
     return errors
 }
 
-const maxAge = 1 * 24 * 60 * 60 //  valid for 1 day
+//const maxAge = 1 * 24 * 60 * 60 //  valid for 1 day
 //create token
 const createToken = (id) => {
-    return jwt.sign({ id }, 'secretid', {
-        expiresIn: maxAge,
+    return jwt.sign({ id }, process.env.JWTSECRETID, {
+        expiresIn: process.env.MAXAGE, //1day
     })
 }
 //üstteki de aynı sekilde token ortak yerden gelecek
@@ -51,10 +50,10 @@ router.post('/', async (req, res) => {
         console.log('returned matched user', user.email)
 
         const token = createToken(user._id)
-        res.cookie('jwt', token, {
+        /*     res.cookie('jwt', token, {
             httpOnly: false,
             maxAge: maxAge * 1000,
-        })
+        }) */
 
         console.log('token generated:', token)
         res.status(200).json({ token })
