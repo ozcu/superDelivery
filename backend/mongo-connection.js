@@ -1,14 +1,20 @@
 const mongoose = require('mongoose')
+require('dotenv').config()
 
-const dbURI2 = 'mongodb://localhost/GetirClone'
+const dbLocal = process.env.MONGOLOCAL
+const dbCloud = process.env.MONGOCLOUD
 
-//connect to mongodb
-const dbURI =
-  'mongodb+srv://Admin:admin1234@cluster0.tw5yi.mongodb.net/myFirstDatabase?retryWrites=true&w=majority'
-mongoose.connect(dbURI2, { useNewUrlParser: true, useUnifiedTopology: true })
+dbConn = dbLocal || dbCloud
+
+const options = {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+}
+
+mongoose.connect(dbConn, options)
 
 var db = mongoose.connection
 db.on('error', console.error.bind(console, 'connection error:'))
 db.once('open', function () {
-  console.log('we are connected to mongodb!')
+    console.log(`we are connected to mongodb on : ${dbConn}`)
 })
