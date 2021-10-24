@@ -2,13 +2,13 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 
 import VueCookies from 'vue-cookies'
+
 import axios from 'axios'
 
 import Home from '../components/Home.vue'
 import Login from '../components/Login.vue'
 import SignupForm from '../components/SignupForm.vue'
 import Products from '../components/Products.vue'
-//import store from '../store'
 
 Vue.use(VueRouter)
 
@@ -51,20 +51,22 @@ router.beforeEach(async (to, from, next) => {
     console.log(`navigating to ${to.name} from ${from.name}`)
 
     console.log(to.meta)
-    //next()
 
+    //protected route axios call check token validity
     if (to.meta.requiresAuth == true) {
-        //protected route axios call check token validity
-
         try {
             const token = VueCookies.get('token')
-            console.log('token', token)
-
-            const res = await axios.post('/auth/', token)
-            const output = await res.data
-            console.log(output)
+            const tokenObj = { token: token }
+            const res = await axios.post('/auth/', tokenObj)
+            const { error } = await res.data
+            if (error !== null && error !== undefined) {
+                alert(error)
+                next('/login')
+            } else {
+                next()
+            }
         } catch (err) {
-            console.log('user is not authenticated!')
+            alert('user is not authenticated!')
             next('/login')
         }
     } else {
