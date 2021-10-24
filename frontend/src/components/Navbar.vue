@@ -1,20 +1,3 @@
-<template>
-    <div id="nav">
-        <router-link class="home" to="/">Home</router-link>
-        <router-link class="login" v-if="!userLogged" to="/login"
-            >Login</router-link
-        >
-        <router-link class="register" v-if="!userLogged" to="/register"
-            >Register</router-link
-        >
-
-        <a href="javascript:void(0)" @click="handleLogout" v-if="userLogged">
-            Logout
-            <!-- buton da olabilir -->
-        </a>
-    </div>
-</template>
-
 <script>
 import { mapState } from 'vuex'
 export default {
@@ -33,6 +16,23 @@ export default {
     },
 }
 </script>
+
+<template>
+    <div id="nav">
+        <router-link class="home" to="/">Home</router-link>
+        <router-link class="login" v-if="!userLogged" to="/login"
+            >Login</router-link
+        >
+        <router-link class="register" v-if="!userLogged" to="/register"
+            >Register</router-link
+        >
+
+        <a href="javascript:void(0)" @click="handleLogout" v-if="userLogged">
+            Logout
+            <!-- buton da olabilir -->
+        </a>
+    </div>
+</template>
 
 <style lang="scss">
 body {
