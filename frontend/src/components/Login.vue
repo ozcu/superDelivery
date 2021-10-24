@@ -1,32 +1,11 @@
-<template>
-    <form class="form" @submit.prevent="loginUser">
-        <h1 class="title">Login</h1>
-        <div class="form-group">
-            <label>Email</label>
-            <input type="email" v-model="email" placeholder="Email" />
-        </div>
-        <div v-if="emailError" class="error">
-            {{ emailError }}
-        </div>
-
-        <div class="form-group">
-            <label>Password</label>
-            <input type="password" v-model="password" placeholder="Password" />
-        </div>
-        <div v-if="passwordError" class="error">
-            {{ passwordError }}
-        </div>
-
-        <button>Login</button>
-    </form>
-</template>
-
 <script>
 import axios from 'axios'
 import VueCookies from 'vue-cookies'
+//import { mapAction,mapState } from 'vuex'
 
 export default {
     name: 'Login',
+
     data() {
         return {
             email: '',
@@ -35,7 +14,12 @@ export default {
             passwordError: '',
         }
     },
+    /* computed:{
+            ...mapState(['email','emailError','password','passwordError'])
+        },  */
+
     methods: {
+        //...mapAction(['loginUser'])
         async loginUser() {
             const data = {
                 email: this.email,
@@ -71,6 +55,29 @@ export default {
     },
 }
 </script>
+
+<template>
+    <form class="form" @submit.prevent="loginUser">
+        <h1 class="title">Login</h1>
+        <div class="form-group">
+            <label>Email</label>
+            <input type="email" v-model="email" placeholder="Email" />
+        </div>
+        <div v-if="emailError" class="error">
+            {{ emailError }}
+        </div>
+
+        <div class="form-group">
+            <label>Password</label>
+            <input type="password" v-model="password" placeholder="Password" />
+        </div>
+        <div v-if="passwordError" class="error">
+            {{ passwordError }}
+        </div>
+
+        <button>Login</button>
+    </form>
+</template>
 
 <style>
 .title {
