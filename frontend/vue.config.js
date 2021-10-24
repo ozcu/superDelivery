@@ -1,6 +1,5 @@
 module.exports = {
     devServer: {
-        proxy: 'http://localhost:3000',
+        proxy: 'http://localhost:3000', //this is for CORS
     },
 }
-//this is used for CORS
