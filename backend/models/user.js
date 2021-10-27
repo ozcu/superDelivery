@@ -34,7 +34,7 @@ UserSchema.pre('save', async function (next) {
     this.password = await bcrypt.hash(this.password, salt)
     next()
 })
-//check user and compare the password in hashed format
+//check user and compare the password 
 UserSchema.statics.login = async function (email, password) {
     const user = await this.findOne({ email })
 
