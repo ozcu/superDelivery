@@ -1,53 +1,25 @@
 <script>
-import axios from 'axios'
+import { mapState, mapActions } from 'vuex'
 
 export default {
-    data() {
-        return {
-            name: '',
-            telephone: '',
-            email: '',
-            password: '',
-            terms: false,
-            passwordError: '',
-            emailError: '',
-        }
+    name: 'Register',
+    computed: {
+        ...mapState([
+            'name',
+            'telephone',
+            'email',
+            'password',
+            'emailError',
+            'passwordError',
+            'terms',
+        ]),
     },
-
+   
     methods: {
         routeHome() {
             this.$router.push('/')
         },
-
-        async registerUser() {
-            const data = {
-                name: this.name,
-                telephone: this.telephone,
-                email: this.email,
-                password: this.password,
-            }
-
-            try {
-                const res = await axios.post(
-                    'http://localhost:3000/register',
-                    data,
-                )
-
-                const output = await res.data
-                console.log(res.data)
-
-                if (output.errors) {
-                    this.emailError = output.errors.email
-                    this.passwordError = output.errors.password
-                } else {
-                    alert('Registration completed, please login')
-                    this.$router.push('/login')
-                }
-                return
-            } catch (err) {
-                throw new Error('cannot register the user!')
-            }
-        },
+        ...mapActions(['registerUser']),
     },
 }
 </script>
@@ -59,31 +31,35 @@ export default {
                 <h1>Register</h1>
                 <form class="registerForm" @submit.prevent="registerUser">
                     <label> Name Surname: </label>
-                    <input type="name" required v-model="name" />
+                    <input type="name" required v-model="$store.state.name" />
                     <label> Telephone: </label>
                     <input
                         type="telephone"
                         required
-                        v-model="telephone"
+                        v-model="$store.state.telephone"
                         placeholder="+90"
                     />
                     <label> Email: </label>
-                    <input type="email" required v-model="email" />
+                    <input type="email" required v-model="$store.state.email" />
                     <div v-if="emailError" class="error">
-                        {{ emailError }}
+                        {{ $store.state.emailError }}
                     </div>
                     <label> Password: </label>
                     <input
                         type="password"
                         required
                         minlength="6"
-                        v-model="password"
+                        v-model="$store.state.password"
                     />
                     <div v-if="passwordError" class="error">
-                        {{ passwordError }}
+                        {{ $store.state.passwordError }}
                     </div>
                     <div class="terms">
-                        <input type="checkbox" required v-model="terms" />
+                        <input
+                            type="checkbox"
+                            required
+                            v-model="$store.state.terms"
+                        />
                         <label> Accept terms and conditions </label>
                     </div>
                     <div class="submit">

@@ -1,78 +1,44 @@
 <script>
-import axios from 'axios'
-import VueCookies from 'vue-cookies'
-//import { mapAction,mapState } from 'vuex'
+import { mapState , mapActions} from 'vuex'
 
 export default {
     name: 'Login',
 
-    data() {
-        return {
-            email: '',
-            emailError: '',
-            password: '',
-            passwordError: '',
-        }
+    computed: {
+        ...mapState(['email', 'emailError', 'password', 'passwordError']),
     },
-    /* computed:{
-            ...mapState(['email','emailError','password','passwordError'])
-        },  */
 
     methods: {
-        //...mapAction(['loginUser'])
-        async loginUser() {
-            const data = {
-                email: this.email,
-                password: this.password,
-            }
-
-            try {
-                const res = await axios.post(
-                    'http://localhost:3000/login',
-                    data,
-                )
-
-                const output = await res.data
-                // const token = await res.body
-
-                if (output.token) {
-                    console.log(output.token)
-                    VueCookies.set('token', output.token, '1h')
-                }
-
-                if (output.errors) {
-                    this.emailError = output.errors.email
-                    this.passwordError = output.errors.password
-                } else {
-                    alert('Login completed!')
-                    this.$router.push('/products')
-                }
-                return
-            } catch (err) {
-                throw new Error('cannot login the user!')
-            }
-        },
+        ...mapActions(['checkAuthLogin']),
     },
 }
 </script>
 
 <template>
-    <form class="form" @submit.prevent="loginUser">
+    <form class="form" @submit.prevent="checkAuthLogin">
         <h1 class="title">Login</h1>
         <div class="form-group">
             <label>Email</label>
-            <input type="email" v-model="email" placeholder="Email" />
+            <input
+                type="email"
+                v-model="$store.state.email"
+                placeholder="Email"
+            />
         </div>
-        <div v-if="emailError" class="error">
-            {{ emailError }}
+        <div v-if="$store.state.emailError" class="error">
+            {{ $store.state.emailError }}
         </div>
 
         <div class="form-group">
             <label>Password</label>
-            <input type="password" v-model="password" placeholder="Password" />
+            <input
+                type="password"
+                v-model="$store.state.password"
+                placeholder="Password"
+            />
         </div>
-        <div v-if="passwordError" class="error">
-            {{ passwordError }}
+        <div v-if="$store.state.passwordError" class="error">
+            {{ $store.state.passwordError }}
         </div>
 
         <button>Login</button>

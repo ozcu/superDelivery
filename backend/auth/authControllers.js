@@ -51,7 +51,8 @@ module.exports.register_post = async (req, res) => {
     try {
         const user = await userService.insert(req.body)
         const token = createToken(user._id)
-        res.status(201).json({ user: user._id })
+
+        res.status(201).json({ token })
     } catch (err) {
         const errors = handleErrors(err)
         return res.status(400).json({ errors })
@@ -71,8 +72,10 @@ module.exports.login_post = async (req, res) => {
 
     try {
         const user = await User.login(email, password)
+        const name = user.name
         const token = createToken(user._id)
-        res.status(200).json({ token })
+        
+        res.status(200).json({ token,name })
     } catch (err) {
         const errors = handleErrors(err)
         return res.json({ errors }).status(400)
