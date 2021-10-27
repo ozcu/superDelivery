@@ -1,13 +1,13 @@
 
 
 <script>
-//import { mapState } from 'vuex'
+import { mapState } from 'vuex'
 
 export default {
     name: 'Home',
 
     computed: {
-       // ...mapState(['userLogged']),
+        ...mapState(['userLogged','name']),
     },
 }
 </script>
@@ -15,8 +15,8 @@ export default {
 <template>
     <div>
         <h1>Home</h1>
-        <!--    <h3 v-if="userLogged">Hi , {{ user.firstName }}</h3>
-        <h3 v-if="!userLogged">Please log in!</h3> -->
+         <h3 v-if="userLogged">Hi , {{name}}</h3>
+        <h3 v-if="!userLogged">Please log in!</h3> 
     </div>
 </template>
 

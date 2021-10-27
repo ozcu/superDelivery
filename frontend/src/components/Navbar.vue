@@ -1,17 +1,26 @@
 <script>
 import { mapState } from 'vuex'
+import store from '../store'
+import VueCookies from 'vue-cookies'
+import router from '../router/index'
+
 export default {
     name: 'Navbar',
 
     computed: {
-        ...mapState(['userLogged']),
+        ...mapState(['userLogged','bearerToken']),
     },
 
     methods: {
         handleLogout() {
-            /*   localStorage.removeItem('token')
-            this.$store.state.user = null
-            this.$router.push('/').catch(() => {})  */
+            store.state.bearerToken = ''
+            VueCookies.remove('token')
+            store.state.userLogged=false
+
+            store.state.name = ''
+            store.state.email = ''
+            
+            router.push('/login')
         },
     },
 }
@@ -29,7 +38,7 @@ export default {
 
         <a href="javascript:void(0)" @click="handleLogout" v-if="userLogged">
             Logout
-            <!-- buton da olabilir -->
+            <!-- can be changed into button as well-->
         </a>
     </div>
 </template>

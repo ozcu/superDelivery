@@ -32,7 +32,8 @@ app.use('/courier-booking', courierBookingRouter) //add remove olmamalı booking
 app.use('/orders', ordersRouter)
 
 app.use(authRoutes) //user login & register router controller
-app.use('/auth', requireAuth) //user auth control middleware
+app.use('/auth', requireAuth) //check if bearer token is available and valid
+
 
 const port = process.env.PORT || 3000
 
