@@ -16,7 +16,7 @@ app.set('view engine', 'pug')
 
 const indexRouter = require('./routes/index')
 const usersRouter = require('./routes/users') //register ile ortak post metodu var cıkarılabilir sonradan.
-//const productsRouter = require('./routes/products')
+const productsRouter = require('./routes/products')
 const depotsRouter = require('./routes/depots')
 const couriersRouter = require('./routes/couriers')
 const basketsRouter = require('./routes/baskets')
@@ -30,10 +30,10 @@ app.use('/couriers', couriersRouter)
 app.use('/baskets', basketsRouter)
 app.use('/courier-booking', courierBookingRouter) //add remove olmamalı booking olmalı
 app.use('/orders', ordersRouter)
+app.use('/products', productsRouter)
 
 app.use(authRoutes) //user login & register router controller
 app.use('/auth', requireAuth) //check if bearer token is available and valid
-
 
 const port = process.env.PORT || 3000
 
