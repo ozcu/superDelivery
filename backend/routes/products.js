@@ -5,18 +5,18 @@ const { productService } = require('../services')
 router.get('/', async (req, res) => {
     try {
         const products = await productService.load()
-        res.render('products', { products: products })
+        res.json({ products }).status(200)
     } catch (e) {
-        throw new Error('Product database cannot be loaded!')
+        return res.send('Cannot load product database!').status(404)
     }
 })
 
 router.get('/:productId', async (req, res) => {
     try {
         const product = await productService.find(req.params.productId)
-        res.render('product', { product: product })
+        res.json({ product }).status(200)
     } catch (e) {
-        return res.status(404).send('Cannot find product!')
+        return res.send('Cannot find product!').status(404)
     }
 })
 
