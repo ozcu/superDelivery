@@ -1,14 +1,14 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
-//import VueCookies from 'vue-cookies'
+import VueCookies from 'vue-cookies'
 import axios from 'axios'
+import store from '../store'
 
 import Home from '../components/Home.vue'
 import Login from '../components/Login.vue'
 import SignupForm from '../components/SignupForm.vue'
 import Products from '../components/Products.vue'
-import store from '../store'
 
 Vue.use(VueRouter)
 
@@ -32,8 +32,6 @@ const routes = [
         meta: { requiresAuth: false },
     },
     {
-        //if there is JWT exists give access to page.
-        //need to decode token on client side to confirm dont know that part yet.
         path: '/products',
         name: 'Products',
         component: Products,
@@ -52,19 +50,27 @@ router.beforeEach(async (to, from, next) => {
 
     console.log(to.meta)
 
-    //protected route axios call check token validity
+    //protected route axios call check token validity and set userLogged state
     if (to.meta.requiresAuth == true) {
-        axios.defaults.headers.common['Authorization'] = `Bearer ${store.state.bearerToken}`
-        
         try {
+            if (localStorage.getItem('userLogged')) {
+                store.state.userLogged = true
+            } else {
+                store.state.userLogged = false
+            }
+            const token = VueCookies.get('token')
+            axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
+
             const res = await axios.get('/auth')
-             const {error} = await res.data
-          if (error!= null || error !==undefined){
-              alert(error)
-              next('/login')
-          }else{
-              next()
-          } 
+            const { error } = await res.data
+            if (error != null || error != undefined) {
+                alert(error)
+                localStorage.setItem('userLogged', false)
+                store.state.userLogged = false
+                next('/login')
+            } else {
+                next()
+            }
         } catch (err) {
             alert('user is not authenticated')
             next('/login')
@@ -72,25 +78,5 @@ router.beforeEach(async (to, from, next) => {
     } else {
         next()
     }
-
-    /* //post token to validate
-         try {
-            const token = VueCookies.get('token')
-            const tokenObj = { token: token }
-            const res = await axios.post('/auth/', tokenObj)
-            const { error } = await res.data
-            if (error !== null && error !== undefined) {
-                alert(error)
-                next('/login')
-            } else {
-                next()
-            }
-        } catch (err) {
-            alert('user is not authenticated!')
-            next('/login')
-        } 
-    } else {
-        next()
-    } */
 })
 export default router
