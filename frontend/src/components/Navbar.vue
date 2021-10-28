@@ -8,18 +8,16 @@ export default {
     name: 'Navbar',
 
     computed: {
-        ...mapState(['userLogged','bearerToken']),
+        ...mapState(['userLogged']),
     },
 
     methods: {
         handleLogout() {
-            store.state.bearerToken = ''
             VueCookies.remove('token')
-            store.state.userLogged=false
-
+            store.state.userLogged = false
+            localStorage.setItem('userLogged', false)
             store.state.name = ''
             store.state.email = ''
-            
             router.push('/login')
         },
     },
@@ -29,6 +27,7 @@ export default {
 <template>
     <div id="nav">
         <router-link class="home" to="/">Home</router-link>
+        <router-link class="products" v-if="!userLogged" to="/products">Products</router-link>
         <router-link class="login" v-if="!userLogged" to="/login"
             >Login</router-link
         >
