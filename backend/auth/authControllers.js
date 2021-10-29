@@ -34,7 +34,7 @@ const handleErrors = (err) => {
 //create JWT Token
 const createToken = (id) => {
     return jwt.sign({ id }, process.env.JWTSECRETID, {
-        expiresIn: process.env.MAXAGE, //3 days
+        expiresIn: process.env.MAXAGE, //1d
     })
 }
 
@@ -74,8 +74,8 @@ module.exports.login_post = async (req, res) => {
         const user = await User.login(email, password)
         const name = user.name
         const token = createToken(user._id)
-        
-        res.status(200).json({ token,name })
+
+        res.status(200).json({ token, name })
     } catch (err) {
         const errors = handleErrors(err)
         return res.json({ errors }).status(400)
