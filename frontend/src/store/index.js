@@ -25,7 +25,7 @@ export default new Vuex.Store({
                 VueCookies.set('token', output.token, process.env.MAXAGE)
                 localStorage.setItem('userLogged', true)
                 this.state.userLogged = true
-                this.state.name = output.name
+                this.state.name = output.name // hard refresh removes its persistence maybe use persistent vuex
                 this.state.email = ''
                 this.state.password = ''
             }
