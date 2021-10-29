@@ -3,11 +3,11 @@ const axios = require('axios')
 
 var data = { products: [] }
 
-for (var i = 1; i <= 5; i++) {
+for (var i = 1; i <= 12; i++) {
     data.products.push({
         name: faker.commerce.product(),
         price: faker.commerce.price(),
-        category: faker.commerce.productDescription(),
+        description: faker.commerce.productDescription(),
     })
 }
 console.log(JSON.stringify(data.products))
