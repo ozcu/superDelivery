@@ -1,41 +1,44 @@
 const BaseService = require('./base-service')
-const userService = require('./user-service')
+const Basket = require('../models/basket')
 const productService = require('./product-service')
 
 class BasketService extends BaseService {
-    async addProductToBasket(userId, productId) {
-        const user = await userService.find(userId)
-        const product = await productService.find(productId)
-        await user.basket.products.push(product)
-        user.basket.basketTotal += product.price
-        await userService.update(userId, user)
-
-        return { user, product }
+    async findById(id) {
+        return this.findBy('_id', id)
     }
+    emptyBasket = async (basketId) => {
+        const basket = await this.find(basketId)
+        basket.products = []
+        basket.basketTotal = 0
+        await this.model.findByIdAndUpdate(basketId, basket)
+        return basket
+    }
+    addProductToBasket = async (basketId, productId) => {
+        const basket = await this.find(basketId)
+        const [product] = await productService.find(productId) //depot-service doesnt need this why??
 
-    async removeProductFromBasket(userId, productId) {
-        const user = await userService.find(userId)
-        const product = await productService.find(productId)
+        await basket.products.push(product)
+        basket.basketTotal += product.price
+        await this.model.findByIdAndUpdate(basketId, basket)
 
-        const index = await user.basket.products.indexOf(product)
-        await user.basket.products.splice(index, 1)
-        user.basket.basketTotal -= product.price
+        return { basket, product }
+    }
+    removeProductFromBasket = async (basketId, productId) => {
+        const basket = await this.find(basketId)
+        const [product] = await productService.find(productId)
 
-        if (user.basket.basketTotal <= 0) {
-            user.basket.basketTotal = 0
+        const index = await basket.products.indexOf(product)
+        await basket.products.splice(index, 1)
+        basket.basketTotal -= product.price
+
+        if (basket.basketTotal <= 0) {
+            basket.basketTotal = 0
         }
-        await userService.update(userId, user)
 
-        return { user, product }
-    }
+        await this.model.findByIdAndUpdate(basketId, basket)
 
-    async emptyUserBasket(userId) {
-        const user = await userService.find(userId)
-        user.basket.products = []
-        user.basket.basketTotal = 0
-        await userService.update(userId, user)
-        return user
+        return { basket, product }
     }
 }
 
-module.exports = new BasketService()
+module.exports = new BasketService(Basket)
