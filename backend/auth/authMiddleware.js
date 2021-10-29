@@ -25,6 +25,7 @@ const requireAuth = (req, res, next) => {
                         const user = await userService.find(decodedToken.id)
                         if (user !== null) {
                             const userId = decodedToken.id
+                            console.log(decodedToken)
                             res.json({ userId }).status(200)
                             next()
                         } else {
