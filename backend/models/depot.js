@@ -1,13 +1,15 @@
 const mongoose = require('mongoose')
 
-const DepotSchema = new mongoose.Schema(
-  {
+const DepotSchema = new mongoose.Schema({
     name: { type: String, required: true, minlength: 2 },
-    address: String,
-    geolocation: [],
-    personnel: [],
-  },
-  { timestamps: true },
-)
-//CourierSchema.plugin(require('mongoose-autopopulate'))
-module.exports = mongoose.model('Depot', DepotSchema)
+    addressCoordinates: [],
+    couriers: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Courier',
+        },
+    ],
+})
+
+const Depot = mongoose.model('Depot', DepotSchema)
+module.exports = Depot
