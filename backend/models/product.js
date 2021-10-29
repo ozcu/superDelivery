@@ -1,15 +1,12 @@
 const mongoose = require('mongoose')
 
-const ProductSchema = new mongoose.Schema(
-  {
+const ProductSchema = new mongoose.Schema({
     name: String,
-    photo: String,
     description: String,
+    photo: String,
     price: Number,
     category: String,
-  },
-  { timestamps: true },
-)
+})
 
-//ProductSchema.plugin(require('mongoose-autopopulate'))
-module.exports = mongoose.model('Product', ProductSchema)
+const Product = mongoose.model('Product', ProductSchema)
+module.exports = Product
