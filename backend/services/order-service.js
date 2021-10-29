@@ -1,26 +1,31 @@
 const BaseService = require('./base-service')
-const userService = require('./user-service')
+const Order = require('../models/order')
+const basketService = require('./basket-service')
 class OrderService extends BaseService {
-    async activateOrder(userId) {
-        const user = await userService.find(userId)
-        user.order.activeOrderTotal = user.basket.basketTotal
-        await userService.update(userId, user)
-        return user
+    activateOrder = async (orderId, basketId) => {
+        const order = await this.find(orderId)
+        const basket = await basketService.find(basketId)
+        order.activeOrderTotal = basket.basketTotal
+
+        await this.model.findByIdAndUpdate(orderId, order)
+        return { order, basket }
     }
 
-    async finalizeOrder(userId) {
-        const user = await userService.find(userId)
-        newUser.order.oldOrderTotal += user.order.activeOrderTotal
+    finalizeOrder = async (orderId, basketId) => {
+        const order = await this.find(orderId)
+        const basket = await basketService.find(basketId)
 
-        user.order.activeOrderTotal = 0
-        user.order.numberOfOrders++
+        order.oldOrdersTotal += order.activeOrderTotal
+        order.activeOrderTotal = 0
+        order.numberofOldOrders++
 
-        user.basket.products = []
-        user.basket.basketTotal = 0
+        basket.products = []
+        basket.basketTotal = 0
 
-        await userService.update(userId, user)
+        await this.model.findByIdAndUpdate(orderId, order)
+        await basketService.update(basketId, basket)
 
-        return user
+        return { order, basket }
     }
 }
-module.exports = new OrderService()
+module.exports = new OrderService(Order)
