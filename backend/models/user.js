@@ -16,15 +16,18 @@ const UserSchema = new mongoose.Schema({
         minlength: [6, 'Minimum password length is 6 characters'],
         type: String,
     },
-    telephone: String,
-    address: String,
-    addressGeolocation: [],
-    creditCardInfo: String,
-    basket: { products: [], basketTotal: Number },
+
+    addressCoordinates: [],
+    basket: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Basket',
+        autopopulate: { maxDepth: 1 },
+    },
+
     order: {
-        activeOrderTotal: Number,
-        numberOfOrders: Number,
-        oldOrderTotal: Number,
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Order',
+        autopopulate: { maxDepth: 1 },
     },
 })
 
@@ -53,6 +56,7 @@ UserSchema.statics.login = async function (email, password) {
     }
 }
 
-//UserSchema.plugin(require('mongoose-autopopulate'))
+UserSchema.plugin(require('mongoose-autopopulate'))
 const User = mongoose.model('User', UserSchema)
+
 module.exports = User
