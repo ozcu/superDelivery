@@ -4,12 +4,12 @@ class BaseService {
   }
 
   save(objects) {
-    // load ve save neden async değil?
+ 
     return this.model.insertMany(objects)
   }
 
   load() {
-    // load ve save neden async değil?
+ 
     return this.model.find()
   }
 
