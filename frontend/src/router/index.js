@@ -9,6 +9,7 @@ import Home from '../components/Home.vue'
 import Login from '../components/Login.vue'
 import SignupForm from '../components/SignupForm.vue'
 import Products from '../components/Products.vue'
+import forgotPassword from '../components/forgotPassword.vue'
 
 Vue.use(VueRouter)
 
@@ -29,6 +30,12 @@ const routes = [
         path: '/register',
         name: 'Register',
         component: SignupForm,
+        meta: { requiresAuth: false },
+    },
+    {
+        path: '/forgot-password',
+        name: 'Forgot Password',
+        component: forgotPassword,
         meta: { requiresAuth: false },
     },
     {
