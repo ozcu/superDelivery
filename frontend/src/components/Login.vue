@@ -1,5 +1,5 @@
 <script>
-import { mapState , mapActions} from 'vuex'
+import { mapState, mapActions } from 'vuex'
 
 export default {
     name: 'Login',
@@ -10,6 +10,9 @@ export default {
 
     methods: {
         ...mapActions(['checkAuthLogin']),
+        forgotPassword() {
+            this.$router.push('/forgot-password')
+        },
     },
 }
 </script>
@@ -40,8 +43,11 @@ export default {
         <div v-if="$store.state.passwordError" class="error">
             {{ $store.state.passwordError }}
         </div>
+        <div>
+            <button>Login</button>
 
-        <button>Login</button>
+            <h5 class="forgot" @click="forgotPassword">I forgot my password</h5>
+        </div>
     </form>
 </template>
 
@@ -58,5 +64,10 @@ export default {
     margin-top: 10px;
     font-size: 0.8em;
     font-weight: bold;
+}
+.forgot {
+    color: #0b6dff;
+    font-size: 14px;
+    text-align: right;
 }
 </style>
