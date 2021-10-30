@@ -11,7 +11,6 @@ export default new Vuex.Store({
     state: {
         userLogged: false,
         name: '',
-        telephone: '',
         terms: false,
         email: '',
         emailError: '',
@@ -67,7 +66,6 @@ export default new Vuex.Store({
         async registerUser({ commit }) {
             const data = {
                 name: this.state.name,
-                telephone: this.state.telephone,
                 email: this.state.email,
                 password: this.state.password,
             }
@@ -85,6 +83,17 @@ export default new Vuex.Store({
                 return res.data.products
             } catch (err) {
                 throw new Error(`Error : ${err}`)
+            }
+        },
+        async forgotPassword() {
+            const email = this.state.email
+
+            try {
+                const res = await axios.post('/forgot-password', { email })
+                console.log(email)
+                return res
+            } catch (err) {
+                throw new Error(`Error is ${err}`)
             }
         },
     },
