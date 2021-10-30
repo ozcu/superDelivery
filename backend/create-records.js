@@ -24,7 +24,6 @@ async function main() {
             name: 'tugberk',
             password: 'qwe123qwe123',
             email: 'asd@gmail.com',
-            telephone: '+44',
             address: 'test mh',
             addressGeolocation: [40.905, 29.104],
             creditCardInfo: '555555',
