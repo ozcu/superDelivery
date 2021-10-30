@@ -6,7 +6,6 @@ export default {
     computed: {
         ...mapState([
             'name',
-            'telephone',
             'email',
             'password',
             'emailError',
@@ -14,7 +13,7 @@ export default {
             'terms',
         ]),
     },
-   
+
     methods: {
         routeHome() {
             this.$router.push('/')
@@ -26,61 +25,44 @@ export default {
 
 <template>
     <div class="backdrop" @click.self="routeHome">
-        <div class="modal">
-            <div class="container">
-                <h1>Register</h1>
-                <form class="registerForm" @submit.prevent="registerUser">
-                    <label> Name Surname: </label>
-                    <input type="name" required v-model="$store.state.name" />
-                    <label> Telephone: </label>
+        <div class="container">
+            <h1>Register</h1>
+            <form class="registerForm" @submit.prevent="registerUser">
+                <label> Name: </label>
+                <input type="name" required v-model="$store.state.name" />
+
+                <label> Email: </label>
+                <input type="email" required v-model="$store.state.email" />
+                <div v-if="emailError" class="error">
+                    {{ $store.state.emailError }}
+                </div>
+                <label> Password: </label>
+                <input
+                    type="password"
+                    required
+                    minlength="6"
+                    v-model="$store.state.password"
+                />
+                <div v-if="passwordError" class="error">
+                    {{ $store.state.passwordError }}
+                </div>
+                <div class="terms">
                     <input
-                        type="telephone"
+                        type="checkbox"
                         required
-                        v-model="$store.state.telephone"
-                        placeholder="+90"
+                        v-model="$store.state.terms"
                     />
-                    <label> Email: </label>
-                    <input type="email" required v-model="$store.state.email" />
-                    <div v-if="emailError" class="error">
-                        {{ $store.state.emailError }}
-                    </div>
-                    <label> Password: </label>
-                    <input
-                        type="password"
-                        required
-                        minlength="6"
-                        v-model="$store.state.password"
-                    />
-                    <div v-if="passwordError" class="error">
-                        {{ $store.state.passwordError }}
-                    </div>
-                    <div class="terms">
-                        <input
-                            type="checkbox"
-                            required
-                            v-model="$store.state.terms"
-                        />
-                        <label> Accept terms and conditions </label>
-                    </div>
-                    <div class="submit">
-                        <button>Register</button>
-                    </div>
-                </form>
-            </div>
+                    <label> Accept terms and conditions </label>
+                </div>
+                <div class="submit">
+                    <button>Register</button>
+                </div>
+            </form>
         </div>
     </div>
 </template>
 
 <style>
-.modal {
-    width: 500px;
-    height: 630px;
-    padding: 20px;
-    margin: 100px auto;
-    background: white;
-    border-radius: 10px;
-}
-
 .backdrop {
     top: 0;
     position: fixed;
@@ -142,8 +124,9 @@ button {
 }
 
 .container h1 {
-    color: #0b6dff;
+    color: #1757b8;
     border: none;
     padding: 0;
+    margin-top: 50px;
 }
 </style>
