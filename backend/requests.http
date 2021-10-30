@@ -4,7 +4,7 @@
 POST http://localhost:3000/users HTTP/1.1
 Content-Type: application/json
 
-{"name": "ugurl3lghan","email": "gg@jjjj.com","password":"qw3333e123qwe","telephone":" +555555","address": "Bostdfga55ncı mh","addressGeolocation": [40.0455, 19.1704],"creditCardInfo": "54545","basket": { "products": [], "basketTotal": 0 },"order": {"activeOrderTotal": 0,"numberOfOrders": 0,"oldOrderTotal": 0}}
+{"name": "ugurl3lghan","email": "gg@jjjj.com","password":"qw3333e123qwe","address": "Bostdfga55ncı mh","addressGeolocation": [40.0455, 19.1704],"creditCardInfo": "54545","basket": { "products": [], "basketTotal": 0 },"order": {"activeOrderTotal": 0,"numberOfOrders": 0,"oldOrderTotal": 0}}
 
 ###
 POST http://localhost:3000/register HTTP/1.1
