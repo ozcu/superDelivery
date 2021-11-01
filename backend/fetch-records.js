@@ -73,16 +73,17 @@ async function main() {
             '617c487634841cbabba83650',
         ) */
         /*  basketService.addProductToBasket(
-            '617c11b431da8230af061a75',
+            '617da5c17e8d54387b403f7f',
             '617c487634841cbabba83650',
         ) */
+        /*  const basket = await basketService.findById('617da5c17e8d54387b403f7f')
+        console.log(basket[0].products) */
         // basketService.emptyBasket('617c11b431da8230af061a75')
         /*   const basket = await new Basket({
             basketTotal: 0,
             products: [],
         })
 
-        
         basketService.save(basket) */
         // console.log(product)
         // console.log(products)
