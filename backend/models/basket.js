@@ -6,14 +6,15 @@ const BasketSchema = new mongoose.Schema({
         {
             type: mongoose.Schema.Types.ObjectId,
             ref: 'Product',
+            autopopulate: true,
         },
     ],
 
     user: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
-        autopopulate: { maxDepth: 1 },
+        autopopulate: true,
     },
 })
-//BasketSchema.plugin(require('mongoose-autopopulate'))
+BasketSchema.plugin(require('mongoose-autopopulate'))
 module.exports = mongoose.model('Basket', BasketSchema)
