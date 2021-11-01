@@ -46,7 +46,9 @@ export default {
         <div>
             <button>Login</button>
 
-            <h5 class="forgot" @click="forgotPassword">I forgot my password</h5>
+            <h5 class="forgot" @click="forgotPassword()">
+                I forgot my password
+            </h5>
         </div>
     </form>
 </template>
