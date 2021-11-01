@@ -23,6 +23,7 @@ const basketsRouter = require('./routes/baskets')
 const courierBookingRouter = require('./routes/courier-booking')
 const ordersRouter = require('./routes/orders')
 const forgotPasswordRouter = require('./routes/forgotPassword')
+const uploadFileRouter = require('./routes/uploadFile')
 
 app.use('/', indexRouter)
 app.use('/users', usersRouter)
@@ -33,6 +34,7 @@ app.use('/courier-booking', courierBookingRouter) //add remove olmamalı booking
 app.use('/orders', ordersRouter)
 app.use('/products', productsRouter)
 app.use('/forgot-password', forgotPasswordRouter)
+app.use('/upload-file', uploadFileRouter)
 
 app.use(authRoutes) //user login & register router controller
 app.use('/auth', requireAuth) //check if bearer token is available and valid
