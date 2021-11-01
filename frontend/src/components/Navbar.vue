@@ -27,7 +27,12 @@ export default {
 <template>
     <div id="nav">
         <router-link class="home" to="/">Home</router-link>
-        <router-link class="products" v-if="!userLogged" to="/products">Products</router-link>
+        <router-link class="products" v-if="userLogged" to="/products"
+            >Products</router-link
+        >
+        <router-link class="addProduct" v-if="userLogged" to="/add-product"
+            >Add Product</router-link
+        >
         <router-link class="login" v-if="!userLogged" to="/login"
             >Login</router-link
         >
