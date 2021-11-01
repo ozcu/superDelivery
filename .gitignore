@@ -3,6 +3,7 @@ node_modules
 /dist
 
 sendgrid.env
+healthy-dolphin-330508-81155a774932.json
 
 # local env files
 .env.local
