@@ -1,33 +1,41 @@
 const express = require('express')
 const router = express.Router()
 const { basketService } = require('../services')
-//add remove olmamalı başlarında değiştir
-router.post('/add/:userId/:productId', async (req, res) => {
+
+router.get('/', async (req, res) => {
     try {
-        const { userId } = req.params
+        res.send(await basketService.load())
+    } catch (err) {
+        console.log(err)
+    }
+})
+//add remove olmamalı başlarında değiştir fakat o identifier olmadan ikisi de aynı?
+router.post('/:basketId/add/:productId', async (req, res) => {
+    try {
+        const { basketId } = req.params
         const { productId } = req.params
-        await basketService.addProductToBasket(userId, productId)
+        await basketService.addProductToBasket(basketId, productId)
         res.send('OK')
     } catch (e) {
         throw new Error('Product not added to basket!')
     }
 })
 
-router.post('/remove/:userId/:productId', async (req, res) => {
+router.post('/:basketId/remove/:productId', async (req, res) => {
     try {
-        const { userId } = req.params
+        const { basketId } = req.params
         const { productId } = req.params
-        await basketService.removeProductFromBasket(userId, productId)
+        await basketService.removeProductFromBasket(basketId, productId)
         res.send('OK')
     } catch (e) {
         throw new Error('Product not removed from basket!')
     }
 })
 
-router.post('/emptyBasket/:userId', async (req, res) => {
+router.post('/emptyBasket/:basketId', async (req, res) => {
     try {
-        const { userId } = req.params
-        await basketService.emptyUserBasket(userId)
+        const { basketId } = req.params
+        await basketService.emptyBasket(basketId)
         res.send('OK')
     } catch (e) {
         throw new Error('Cannot empty the basket!')
