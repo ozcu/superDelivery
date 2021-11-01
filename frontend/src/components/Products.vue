@@ -1,6 +1,10 @@
 <script>
 import { mapActions } from 'vuex'
+import Basket from './Basket.vue'
+import axios from 'axios'
 export default {
+    name: 'Products',
+    components: { Basket },
     data() {
         return {
             query: '',
@@ -27,13 +31,42 @@ export default {
             this.isSearched = true
             return this.matchedProducts
         },
+        addProductToBasket(passedProductId) {
+            const productId = passedProductId
+            const basketId = '617da5c17e8d54387b403f7f' // create a new basket when user created, nest the new basket to relevant user schema, fetch it on mount and store it here.
+            axios
+                .post(`/baskets/${basketId}/add/${productId}`)
+                .then(function () {
+                    console.log('SUCCESS!!')
+                })
+                .catch(function () {
+                    console.log('FAILURE!!')
+                })
+        },
+        removeProductFromBasket(passedProductId) {
+            const productId = passedProductId
+            const basketId = '617da5c17e8d54387b403f7f'
+            axios
+                .post(`/baskets/${basketId}/remove/${productId}`)
+                .then(function () {
+                    console.log('SUCCESS!!')
+                })
+                .catch(function () {
+                    console.log('FAILURE!!')
+                })
+        },
     },
 }
 </script>
 
 <template>
     <div>
-        <h1>Products</h1>
+        <div>
+            <h1>Products</h1>
+
+            <div class="basket"><Basket /></div>
+        </div>
+
         <div class="searchbar">
             <b-form-input
                 v-model="query"
@@ -61,7 +94,18 @@ export default {
                         <b-card-text class="description">
                             {{ product.description }}
                         </b-card-text>
-                        <button class="bg-secondary text-light p-1">+</button>
+                        <button
+                            class="bg-secondary text-light p-1"
+                            @click="addProductToBasket(product._id)"
+                        >
+                            +
+                        </button>
+                        <button
+                            class="bg-secondary text-light p-1"
+                            @click="removeProductFromBasket(product._id)"
+                        >
+                            -
+                        </button>
                     </b-card>
                 </div>
             </div>
@@ -84,7 +128,12 @@ export default {
                         <b-card-text class="description">
                             {{ matchedProduct.description }}
                         </b-card-text>
-                        <button class="bg-secondary text-light p-1">+</button>
+                        <button
+                            class="bg-secondary text-light p-1"
+                            @click="removeProductFromBasket(matchedProduct._id)"
+                        >
+                            -
+                        </button>
                     </b-card>
                 </div>
             </div>
@@ -101,5 +150,10 @@ export default {
     margin-left: auto;
     margin-right: auto;
     width: 500px;
+}
+.basket {
+    width: 100px;
+    margin-left: auto;
+    margin-right: 150px;
 }
 </style>
