@@ -43,7 +43,7 @@ function dateBuilder() {
 const date = dateBuilder()
 console.log(date)
 
-createProduct = async (productDataBody, publicUrl) => {
+async function createProduct(productDataBody, publicUrl) {
     const product = new Product({
         name: productDataBody.name,
         description: productDataBody.description,
@@ -51,7 +51,7 @@ createProduct = async (productDataBody, publicUrl) => {
         price: productDataBody.price,
         category: productDataBody.category,
     })
-
+    console.log(product)
     await productService.insert(product)
 }
 
@@ -120,6 +120,7 @@ new Promise((resolve, reject) => {
         blobStream.end(req.files[0].buffer)
     })
 })
+
     .then(([productDataBody, publicUrl]) => {
         createProduct(productDataBody, publicUrl)
     })
