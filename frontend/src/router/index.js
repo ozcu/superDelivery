@@ -10,6 +10,7 @@ import Login from '../components/Login.vue'
 import SignupForm from '../components/SignupForm.vue'
 import Products from '../components/Products.vue'
 import forgotPassword from '../components/forgotPassword.vue'
+import addProduct from '../components/addProduct.vue'
 
 Vue.use(VueRouter)
 
@@ -42,6 +43,12 @@ const routes = [
         path: '/products',
         name: 'Products',
         component: Products,
+        meta: { requiresAuth: true },
+    },
+    {
+        path: '/add-product',
+        name: 'addProduct',
+        component: addProduct,
         meta: { requiresAuth: true },
     },
 ]
