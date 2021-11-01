@@ -21,6 +21,7 @@ export default {
         ...mapActions(['registerUser']),
     },
 }
+//modal missing on backdrop adding it not render it removing it not trigger click.self
 </script>
 
 <template>
