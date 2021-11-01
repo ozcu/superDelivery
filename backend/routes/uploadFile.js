@@ -3,6 +3,7 @@ var express = require('express')
 const router = express.Router()
 const path = require('path')
 const Product = require('../models/product')
+const productService = require('../services/product-service')
 
 const { Storage } = require('@google-cloud/storage')
 
@@ -42,7 +43,7 @@ function dateBuilder() {
 const date = dateBuilder()
 console.log(date)
 
-createProduct = (productDataBody, publicUrl) => {
+createProduct = async (productDataBody, publicUrl) => {
     const product = new Product({
         name: productDataBody.name,
         description: productDataBody.description,
@@ -50,12 +51,8 @@ createProduct = (productDataBody, publicUrl) => {
         price: productDataBody.price,
         category: productDataBody.category,
     })
-        .then(function () {
-            console.log(product)
-        })
-        .catch(function () {
-            console.log('cannot create product')
-        })
+
+    await productService.insert(product)
 }
 
 const gcs = new Storage({
@@ -90,10 +87,8 @@ var uploadHandler = multer({
 const bucket = gcs.bucket('super-delivery')
 
 // GCP Bucket Image Upload
-router.post('/', uploadHandler.any(), async (req, res) => {
-    try {
-        //const promise = new Promise((resolve,reject)=>{}) //promisify the product generation
-
+new Promise((resolve, reject) => {
+    router.post('/', uploadHandler.any(), (req, res) => {
         console.log(req.files) // to show req.file is being passed through
 
         //parse the json string and assign it json object
@@ -118,14 +113,18 @@ router.post('/', uploadHandler.any(), async (req, res) => {
             // the public url can be used to directly access the file via HTTP
             const publicUrl = `https://storage.googleapis.com/${bucket.name}/${blob.name}`
             console.log(publicUrl)
+
+            resolve([productDataBody, publicUrl])
         })
 
         blobStream.end(req.files[0].buffer)
-
-        //createProduct(matchedArray, publicUrl) //promisify the product generation
-    } catch (err) {
-        throw new Error('Post request failed!')
-    }
+    })
 })
+    .then(([productDataBody, publicUrl]) => {
+        createProduct(productDataBody, publicUrl)
+    })
+    .catch((err) => {
+        console.log(console.log('error is' + err))
+    })
 
 module.exports = router
