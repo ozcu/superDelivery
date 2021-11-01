@@ -31,6 +31,7 @@ export default {
                 .catch(function () {
                     console.log('FAILURE!!')
                 })
+            this.$router.go(0)
         },
         handleFileUpload() {
             this.file = this.$refs.file.files[0] //requires ref="file" in input
@@ -85,11 +86,11 @@ export default {
                         type="file"
                         ref="file"
                         accept="image/jpeg, image/png"
-                        @change="handleFileUpload()"
+                        @change="handleFileUpload"
                     />
                 </div>
             </form>
-            <button v-on:click="submitFile()">Submit</button>
+            <button @click="submitFile">Submit</button>
         </div>
     </div>
 </template>
