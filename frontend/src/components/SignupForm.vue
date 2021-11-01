@@ -25,7 +25,7 @@ export default {
 </script>
 
 <template>
-    <div class="backdrop" @click.self="routeHome">
+    <div class="backdrop" @click.self="routeHome()">
         <div class="container">
             <h1>Register</h1>
             <form class="registerForm" @submit.prevent="registerUser">
