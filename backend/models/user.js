@@ -1,6 +1,9 @@
 const mongoose = require('mongoose')
 const { isEmail } = require('validator')
 const bcrypt = require('bcrypt')
+const basketService = require('../services/basket-service')
+const userService = require('../services/user-service')
+const Basket = require('./basket')
 
 const UserSchema = new mongoose.Schema({
     name: { type: String },
@@ -36,6 +39,18 @@ UserSchema.pre('save', async function (next) {
     const salt = await bcrypt.genSalt()
     this.password = await bcrypt.hash(this.password, salt)
     next()
+})
+
+UserSchema.post('save', async (email) => {
+    const newBasket = new Basket({
+        basketTotal: 0,
+        products: [],
+    })
+
+    await basketService.insert(newBasket)
+    /*    const newUser = await userService.findBy(email, email) doesnt work
+    await newUser.basket.push(newBasket)
+    console.log(newUser) */
 })
 
 //check user and compare the password
