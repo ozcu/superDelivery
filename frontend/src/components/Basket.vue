@@ -1,7 +1,7 @@
 <template>
     <div>
         <b-button class="button" variant="primary"
-            >Cart: {{ basketTotal }} TL</b-button
+            >Cart: {{ $store.state.basketTotal }} TL</b-button
         >
         <div id="shoppingCart" class="modal fade">
             <!-- The rest of the modal will go here -->
@@ -10,14 +10,13 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 import axios from 'axios'
 export default {
     name: 'Basket',
-
+    computed: { ...mapState(['basketTotal']) },
     data() {
-        return {
-            basketTotal: 0, // make it a computed property
-        }
+        return {}
     },
     async mounted() {
         this.basket = await this.fetchBaskets()
@@ -26,16 +25,12 @@ export default {
     methods: {
         async fetchBaskets() {
             const res = await axios.get('/baskets')
-            this.basketTotal = Math.round(res.data[0].basketTotal)
-            console.log(res.data[0].basketTotal)
+            this.$store.state.basketTotal = Math.round(res.data[0].basketTotal)
+
             return res.data
         },
     },
 }
 </script>
 
-<style>
-.button {
-    width: 125px;
-}
-</style>
+<style></style>
