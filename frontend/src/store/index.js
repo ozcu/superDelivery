@@ -16,6 +16,7 @@ export default new Vuex.Store({
         emailError: '',
         password: '',
         passwordError: '',
+        basketTotal:0,
     },
     mutations: {
         //checks if server generated a valid JWT and sets it to a cookie
