@@ -41,7 +41,6 @@ function dateBuilder() {
     return `${day}_${date}_${month}_${year}_`
 }
 const date = dateBuilder()
-console.log(date)
 
 async function createProduct(productDataBody, publicUrl) {
     const product = new Product({
@@ -63,7 +62,7 @@ const gcs = new Storage({
     project_id: 'healthy-dolphin-330508',
 })
 
-//dont know yet if works need to check more into multer middleware
+//check multer
 const fileFilter = (req, file, cb) => {
     // Reject other types file
     if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
@@ -72,7 +71,7 @@ const fileFilter = (req, file, cb) => {
         cb(null, false)
     }
 }
-//file size control not working for now.
+//file size control not working for now. not passing any object inside memorystorage check multer
 var uploadHandler = multer({
     storage: multer.memoryStorage(),
     limits: {
@@ -87,8 +86,9 @@ var uploadHandler = multer({
 const bucket = gcs.bucket('super-delivery')
 
 // GCP Bucket Image Upload
-new Promise((resolve, reject) => {
-    router.post('/', uploadHandler.any(), (req, res) => {
+
+router.post('/', uploadHandler.any(), async (req, res) => {
+    return new Promise((resolve, reject) => {
         console.log(req.files) // to show req.file is being passed through
 
         //parse the json string and assign it json object
@@ -103,29 +103,26 @@ new Promise((resolve, reject) => {
             resumable: false,
         })
 
-        // The err is not getting console logged even though it is not saving to the google cloud bucket properly?
         blobStream.on('error', (err) => {
             next(err)
             console.log(err)
             return
         })
+
         blobStream.on('finish', () => {
             // the public url can be used to directly access the file via HTTP
             const publicUrl = `https://storage.googleapis.com/${bucket.name}/${blob.name}`
-            console.log(publicUrl)
 
             resolve([productDataBody, publicUrl])
         })
-
         blobStream.end(req.files[0].buffer)
     })
+        .then(async ([productDataBody, publicUrl]) => {
+            await createProduct(productDataBody, publicUrl)
+        })
+        .catch((err) => {
+            console.log(console.log('error is' + err))
+        })
 })
-
-    .then(([productDataBody, publicUrl]) => {
-        createProduct(productDataBody, publicUrl)
-    })
-    .catch((err) => {
-        console.log(console.log('error is' + err))
-    })
 
 module.exports = router
