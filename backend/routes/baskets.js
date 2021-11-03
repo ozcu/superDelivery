@@ -6,7 +6,7 @@ router.get('/', async (req, res) => {
     try {
         res.send(await basketService.load())
     } catch (err) {
-        console.log(err)
+        throw new Error('Basket db cannot be loaded!')
     }
 })
 //add remove olmamalı başlarında değiştir fakat o identifier olmadan ikisi de aynı?
