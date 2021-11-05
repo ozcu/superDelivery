@@ -1,37 +1,23 @@
-# GetirClone
-Getir Clone Project
+# superDelivery
+superDelivery is a Getir like project 
 
-First extensive project that has backend and frontend components.
-
-Phase 1
-*Create UML Diagram
-*Create backend relationship with Node.js
-  -update- Form structure and its methods, route handling and request structure implemented with minor frontend testing.
-
-Phase 2
-*Create database relationships
-  -update-Database and its relationship in backend moved from filesystem to mongodb with mongoose
-
-Phase3
-*Create Frontend relationship with Vue.js
-
-Phase 4
-*Deployment with Docker
+Backend:Nodejs with Express
+Frontend:Vuejs
+Database:MongoDB
 
 
-User can add or remove products from basket, empty the basket, activate the order and finalize the order.
-Depot can add/remove couriers.
+User can add products to system and images are uploaded to google cloud storage.
+User can add and remove products to/from its referenced basket.
+Products and addProduct routes are secured with jsonwebtoken session stored via cookie and controlled in backend.
+Forgotmypassword service sends password to relevant email. Next step is to add a link to forward password change screen.
 
-Next Steps
-
-When order is finalized system finds closest depot and send the order to it.
-Active order is accepted by courier in the depot.
-Courier delivers the order.
-System collects the deliveryTime.
+Next steps
+Finalize basket and confirm order
+System detects the shortest depot to user.
+System assigns delivery to a courier.
 User will grade the courier.
-Couriers can be sorted by their grade.
+Discount system may be implemented.
 
-Discount system will be implemented.
-
+Deployment with Docker to google cloud.
 
 Reference application -> https://getir.com/
