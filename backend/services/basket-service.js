@@ -23,7 +23,8 @@ class BasketService extends BaseService {
             const [product] = await productService.find(productId) //depot-service doesnt need this as array why??
 
             await basket.products.push(product)
-            basket.basketTotal += product.price
+            basket.basketTotal +=
+                Math.round((product.price + Number.EPSILON) * 100) / 100
             await this.model.findByIdAndUpdate(basketId, basket)
 
             return { basket, product }
@@ -41,7 +42,9 @@ class BasketService extends BaseService {
 
             if (index >= 0) {
                 await basket.products.splice(index, 1)
-                basket.basketTotal -= product.price
+                basket.basketTotal -=
+                    Math.round((product.price + Number.EPSILON) * 100) / 100
+
                 if (basket.basketTotal <= 0) {
                     basket.basketTotal = 0
                 }
