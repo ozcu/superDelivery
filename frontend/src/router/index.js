@@ -60,10 +60,7 @@ const router = new VueRouter({
 })
 
 router.beforeEach(async (to, from, next) => {
-    console.log(`navigating to ${to.name} from ${from.name}`)
-
-    console.log(to.meta)
-
+    
     //protected route axios call check token validity and set userLogged state
     if (to.meta.requiresAuth == true) {
         try {
