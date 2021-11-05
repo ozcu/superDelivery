@@ -14,15 +14,14 @@ export default {
             matchedProducts: [],
             isSearched: false,
             isLoading: true,
-            basketId: '',
         }
     },
-    computed: { ...mapState(['basketTotal']) },
+    computed: { ...mapState(['basketTotal', 'basketId']) },
 
     async mounted() {
         this.products = await this.fetchProducts()
         const fetchedBasket = await this.fetchBasket()
-        this.basketId = fetchedBasket[0].basketId
+        this.$store.state.basketId = fetchedBasket[0].basketId
         this.$store.state.basketTotal = fetchedBasket[0].basketTotal
         this.isLoading = false
     },
@@ -48,13 +47,11 @@ export default {
         },
         async addProductToBasket(product) {
             const productId = product._id
-            const basketId = this.basketId
+            const basketId = this.$store.state.basketId
 
             axios
                 .post(`/baskets/${basketId}/add/${productId}`)
-                .then(function () {
-                    console.log('Product added to basket!')
-                })
+                .then(console.log('product added'))
                 .catch(function () {
                     console.log('Failed to add product to basket!!')
                 })
@@ -63,19 +60,16 @@ export default {
         },
         async removeProductFromBasket(product) {
             const productId = product._id
-            const basketId = this.basketId
+            const basketId = this.$store.state.basketId
             axios
                 .post(`/baskets/${basketId}/remove/${productId}`)
-                .then(function () {
-                    console.log('Product removed from basket!!')
-                })
+                .then(console.log('product removed'))
                 .catch(function () {
                     console.log('Failed to remove product from basket!!')
                 })
             const fetchedBasket = await this.fetchBasket()
             this.$store.state.basketTotal = fetchedBasket[0].basketTotal
         },
-        emptyBasket() {},
     },
 }
 </script>
