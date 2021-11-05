@@ -121,7 +121,7 @@ router.post('/', uploadHandler.any(), async (req, res) => {
             await createProduct(productDataBody, publicUrl)
         })
         .catch((err) => {
-            console.log(console.log('error is' + err))
+            console.log('error is' + err)
         })
 })
 
