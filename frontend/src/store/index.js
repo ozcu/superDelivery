@@ -11,13 +11,13 @@ export default new Vuex.Store({
     state: {
         userLogged: false,
         name: '',
-        terms: false,
         email: '',
         emailError: '',
         password: '',
         passwordError: '',
         basketTotal: 0,
         userId: '',
+        basketId: '',
     },
     mutations: {
         //checks if server generated a valid JWT and sets it to a cookie
@@ -96,10 +96,10 @@ export default new Vuex.Store({
                 })
                 const matchedBasket = user.map((el) => {
                     if (el.user._id == this.state.userId) {
-                        console.log('basket and user matched')
                         const basketId = el._id
                         const basketTotal = el.basketTotal
-                        return {basketId, basketTotal}
+                        const products = el.products
+                        return { basketId, basketTotal,products }
                     } else {
                         console.log('basket and user not matched')
                     }
@@ -115,7 +115,6 @@ export default new Vuex.Store({
 
             try {
                 const res = await axios.post('/forgot-password', { email })
-                console.log(email)
                 return res
             } catch (err) {
                 throw new Error(`Error is ${err}`)
