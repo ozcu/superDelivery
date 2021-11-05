@@ -2,7 +2,6 @@ const mongoose = require('mongoose')
 const { isEmail } = require('validator')
 const bcrypt = require('bcrypt')
 const basketService = require('../services/basket-service')
-const userService = require('../services/user-service')
 const Basket = require('./basket')
 
 const UserSchema = new mongoose.Schema({
@@ -41,17 +40,19 @@ UserSchema.pre('save', async function (next) {
     next()
 })
 
-UserSchema.post('save', async (email) => {
+//save basket schema and refer in user schema
+UserSchema.statics.register = async function (email) {
+    const user = await this.findOne({ email })
+
     const newBasket = new Basket({
         basketTotal: 0,
         products: [],
+        user: user._id,
     })
-
-    await basketService.insert(newBasket)
-    /*    const newUser = await userService.findBy(email, email) doesnt work
-    await newUser.basket.push(newBasket)
-    console.log(newUser) */
-})
+    const basket = await basketService.insert(newBasket)
+    const userBasket = { basket: basket._id }
+    await User.findOneAndUpdate({ email }, userBasket)
+}
 
 //check user and compare the password
 UserSchema.statics.login = async function (email, password) {
