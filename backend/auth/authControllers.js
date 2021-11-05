@@ -52,6 +52,8 @@ module.exports.register_post = async (req, res) => {
         const user = await userService.insert(req.body)
         const token = createToken(user._id)
 
+        const { email: email } = req.body
+        await User.register(email)
         res.status(201).json({ token })
     } catch (err) {
         const errors = handleErrors(err)
@@ -74,8 +76,9 @@ module.exports.login_post = async (req, res) => {
         const user = await User.login(email, password)
         const name = user.name
         const token = createToken(user._id)
+        const id = user._id
 
-        res.status(200).json({ token, name })
+        res.status(200).json({ token, name, id })
     } catch (err) {
         const errors = handleErrors(err)
         return res.json({ errors }).status(400)
