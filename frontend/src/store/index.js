@@ -16,7 +16,8 @@ export default new Vuex.Store({
         emailError: '',
         password: '',
         passwordError: '',
-        basketTotal:0,
+        basketTotal: 0,
+        userId: '',
     },
     mutations: {
         //checks if server generated a valid JWT and sets it to a cookie
@@ -28,6 +29,7 @@ export default new Vuex.Store({
                 this.state.name = output.name // hard refresh removes its persistence maybe use persistent vuex
                 this.state.email = ''
                 this.state.password = ''
+                this.state.userId = output.id
             }
             //checks if any error is available, sets it to show in Login screen.
             if (output.errors) {
@@ -58,7 +60,6 @@ export default new Vuex.Store({
             try {
                 const res = await axios.post('/login', data)
                 const output = await res.data
-
                 commit('CHECK_AUTH_LOGIN', output)
             } catch (err) {
                 throw new Error(`cannot login the user!, Error : ${err}`)
@@ -86,6 +87,29 @@ export default new Vuex.Store({
                 throw new Error(`Error : ${err}`)
             }
         },
+        async fetchBasket() {
+            try {
+                const res = await axios.get('/baskets')
+
+                const user = res.data.filter((el) => {
+                    return el.user
+                })
+                const matchedBasket = user.map((el) => {
+                    if (el.user._id == this.state.userId) {
+                        console.log('basket and user matched')
+                        const basketId = el._id
+                        const basketTotal = el.basketTotal
+                        return {basketId, basketTotal}
+                    } else {
+                        console.log('basket and user not matched')
+                    }
+                })
+                return matchedBasket
+            } catch (err) {
+                throw new Error(`Error : ${err}`)
+            }
+        },
+
         async forgotPassword() {
             const email = this.state.email
 
