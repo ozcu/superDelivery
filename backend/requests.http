@@ -78,7 +78,7 @@ content-type: application/json
 {"name": "test"}
 ///Basket Operation Requests
 ###
-POST http://localhost:3000/baskets/617da5c17e8d54387b403f7f/add/61803559e4d3bee570fc8f18 HTTP/1.1
+POST http://localhost:3000/baskets/618504f2548763c845c4d935/add/61803559e4d3bee570fc8f18 HTTP/1.1
 Content-Type: application/json
 ###
 POST http://localhost:3000/baskets/617da5c17e8d54387b403f7f/remove/61803559e4d3bee570fc8f18 HTTP/1.1
