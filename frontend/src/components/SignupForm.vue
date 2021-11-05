@@ -3,6 +3,11 @@ import { mapState, mapActions } from 'vuex'
 
 export default {
     name: 'Register',
+    data() {
+        return {
+            terms: false,
+        }
+    },
     computed: {
         ...mapState([
             'name',
@@ -10,7 +15,6 @@ export default {
             'password',
             'emailError',
             'passwordError',
-            'terms',
         ]),
     },
 
@@ -48,11 +52,7 @@ export default {
                     {{ $store.state.passwordError }}
                 </div>
                 <div class="terms">
-                    <input
-                        type="checkbox"
-                        required
-                        v-model="$store.state.terms"
-                    />
+                    <input type="checkbox" required v-model="this.terms" />
                     <label> Accept terms and conditions </label>
                 </div>
                 <div class="submit">
