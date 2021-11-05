@@ -14,17 +14,21 @@ export default {
             matchedProducts: [],
             isSearched: false,
             isLoading: true,
+            basketId: '',
         }
     },
     computed: { ...mapState(['basketTotal']) },
 
     async mounted() {
         this.products = await this.fetchProducts()
+        const fetchedBasket = await this.fetchBasket()
+        this.basketId = fetchedBasket[0].basketId
+        this.$store.state.basketTotal = fetchedBasket[0].basketTotal
         this.isLoading = false
     },
 
     methods: {
-        ...mapActions(['fetchProducts']),
+        ...mapActions(['fetchProducts', 'fetchBasket']),
         findProducts() {
             return this.products.filter((product) => {
                 const regexSearch = new RegExp(this.query, 'gi')
@@ -42,9 +46,10 @@ export default {
             this.isSearched = true
             return this.matchedProducts
         },
-        addProductToBasket(product) {
+        async addProductToBasket(product) {
             const productId = product._id
-            const basketId = '617da5c17e8d54387b403f7f' // create a new basket when user created, nest the new basket to relevant user schema, fetch it on mount and store it here.
+            const basketId = this.basketId
+
             axios
                 .post(`/baskets/${basketId}/add/${productId}`)
                 .then(function () {
@@ -53,11 +58,12 @@ export default {
                 .catch(function () {
                     console.log('Failed to add product to basket!!')
                 })
-            //this.$forceUpdate() need an update method to Basket component for addition and removal
+            const fetchedBasket = await this.fetchBasket()
+            this.$store.state.basketTotal = fetchedBasket[0].basketTotal
         },
-        removeProductFromBasket(product) {
+        async removeProductFromBasket(product) {
             const productId = product._id
-            const basketId = '617da5c17e8d54387b403f7f'
+            const basketId = this.basketId
             axios
                 .post(`/baskets/${basketId}/remove/${productId}`)
                 .then(function () {
@@ -66,6 +72,8 @@ export default {
                 .catch(function () {
                     console.log('Failed to remove product from basket!!')
                 })
+            const fetchedBasket = await this.fetchBasket()
+            this.$store.state.basketTotal = fetchedBasket[0].basketTotal
         },
         emptyBasket() {},
     },
