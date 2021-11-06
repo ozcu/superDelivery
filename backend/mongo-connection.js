@@ -4,7 +4,7 @@ require('dotenv').config()
 const dbLocal = process.env.MONGOLOCAL
 const dbCloud = process.env.MONGOCLOUD
 
-dbConn = dbLocal || dbCloud
+dbConn = dbCloud || dbLocal
 
 const options = {
     useNewUrlParser: true,
