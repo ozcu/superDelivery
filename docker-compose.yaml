@@ -1,0 +1,10 @@
+version: '3.8'
+services:
+    backend:
+        build: frontend
+        ports:
+         - 8080:8080
+    frontend:
+        build: backend
+        ports:
+         - 3000:3000
