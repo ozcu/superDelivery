@@ -1,0 +1,6 @@
+node_modules
+.editorconfig
+.prettierrc.json
+.eslintrc.json
+.browserslistrc
+Dockerfile
