@@ -1,0 +1,7 @@
+node_modules
+requests.http
+Dockerfile
+fetch-records.js
+generateProductData.js
+generateUserData.js
+UML Diagram
