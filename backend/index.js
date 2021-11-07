@@ -39,7 +39,7 @@ app.use('/upload-file', uploadFileRouter)
 app.use(authRoutes) //user login & register router controller
 app.use('/auth', requireAuth) //check if bearer token is available and valid
 
-const port = process.env.PORT || 3000
+const port = 3000 || process.env.BACKEND_BASE_PORT //build fail oldu buraya bakmam gerekiyor aralarında konusmuyorlar default 8080 yüzünden.
 
 app.listen(port, () => {
     console.log(`server started listening on port:${port}`)
