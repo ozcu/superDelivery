@@ -12,7 +12,8 @@ import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
 
 Vue.config.productionTip = false
 VueCookies.config('3d', '', '', true, 'Lax')
-axios.defaults.baseURL = 'http://localhost:3000'
+axios.defaults.baseURL =
+    'https://backend-7z3lhywtla-ew.a.run.app' || process.env.BACKEND_BASE_URL
 Vue.use(BootstrapVue)
 Vue.use(IconsPlugin)
 
