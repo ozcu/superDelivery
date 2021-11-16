@@ -19,4 +19,4 @@ System assigns delivery to a courier.
 User will grade the courier.
 Discount system may be implemented.
 
-demo in www.ugurhanb.com
+demo ->> https://frontend-7z3lhywtla-ew.a.run.app/
