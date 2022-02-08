@@ -6,6 +6,8 @@ Frontend:Vuejs
 Database:MongoDB
 
 
+![Imgur Image](https://imgur.com/HAlXy2C.jpg)
+
 User can add products to system and images are uploaded to google cloud storage.
 User can add and remove products to/from its referenced basket.
 Products and addProduct routes are secured with jsonwebtoken session stored via cookie and controlled in backend.
